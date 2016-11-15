@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+tmux -2 attach -t `whoami` || tmux new -s `whoami`
+

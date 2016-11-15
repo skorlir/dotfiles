@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+cat $1 | xclip -selection clipboard
+

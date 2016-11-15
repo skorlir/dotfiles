@@ -1,0 +1,19 @@
+alias open=xdg-open
+alias pdf='evince'
+alias glogout='gnome-session-quit --logout --no-prompt'
+alias npm-init='npm init -y'
+# n: don't read stdin, N: don't run a remote command, T: no tty, D: proxy everything via 1080, o: option, ServerAliveInterval: send a keepalive packet
+alias run-proxy='ssh -nNTD 1080 homebase-tunnel -o "ServerAliveInterval 60"'
+alias proxy-tmux-bg='tmux neww -n "tunnel" run-proxy'
+alias ta='tmux attach'
+alias tl='tmux list-w'
+alias wviz='watch -n 0.1 -tc $HOME/.functions/viz'
+alias clip='xclip -sel clip'
+#alias clip='pbcopy' # OS X
+alias ramdisk-up="sudo mount -t tmpfs -o size=2048M tmpfs /media/$(whoami)/ramdisk && echo \"Ramdisk UP at /media/$(whoami)/ramdisk\" && echo \"Ramdisk df (Disk Free) output:\n`df /media/$(whoami)/ramdisk`\""
+alias ramdisk-rm="sudo umount /media/$(whoami)/ramdisk && echo \"Ramdisk DOWN at /media/$(whoami)/ramdisk\""
+alias ramdisk-down=ramdisk-rm
+# make it pretty
+#alias ls='ls++'
+#alias ls='ls --sort=extension'
+alias vim=nvim
