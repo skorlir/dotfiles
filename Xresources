@@ -1,48 +1,25 @@
-!URxvt.loginShell: true
-!URxvt.transparent: true
-!URxvt.inheritPixmap: false
-!URxvt.imLocale: pl_PL.UTF-8
-!URxvt.scrollBar: false
-!URxvt.saveLines: 10000
-!URxvt.urlLauncher: vivaldi
-!URxvt.cursorBlink: true
-!URxvt.geometry: 80x20
-!URxvt.fading: 25%
-!URxvt.letterSpace:
-
-! special
-*.foreground:   #5cf8ff
-*.background:   #24243f
-*.cursorColor:  #5cf8ff
-
-! black
-*.color0:       #030404
-*.color8:       #ceeeff
-
-! red
-*.color1:       #e5a7a7
-*.color9:       #ff7e7e
-
-! green
-*.color2:       #abfffb
-*.color10:      #abfffb
-
-! yellow
-*.color3:       #6eb3ff
-*.color11:      #f2b3ff
-
-! blue
-*.color4:       #c08aff
-*.color12:      #f67bff
-
-! magenta
-*.color5:       #d494e1
-*.color13:      #f2b3ff
-
-! cyan
-*.color6:       #8afffa
-*.color14:      #8afffa
-
-! white
-*.color7:       #6791bf
-*.color15:      #13ffc2
+! X Resources: Generated with Hodler (http://github.com/matttproud/hodler)
+*color0: #090300
+*color1: #db2d20
+*color2: #01a252
+*color3: #fded02
+*color4: #01a0e4
+*color5: #a16a94
+*color6: #b5e4f4
+*color7: #a5a2a2
+*color8: #5c5855
+*color9: #e8bbd0
+*color10: #3a3432
+*color11: #4a4543
+*color12: #807d7c
+*color13: #d6d5d4
+*color14: #cdab53
+*color15: #f7f7f7
+*background: #090300
+*foreground: #a5a2a2
+*cursorColor: #a5a2a2
+! See "highlightColorMode" and "hm" options in XTerm manual page.
+*highlightTextColor: #a5a2a2
+*highlightColor: #4a4543
+! No support for cursor text coloring; would be #090300.
+! No support for bold coloring; would be #a5a2a2.
