@@ -39,3 +39,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # Add z
 source $HOME/dev/~installs/z/z.sh
 
+# Go
+export GOPATH="$HOME/dev/~installs/gocode/"
+export PATH="$PATH:$HOME/dev/~installs/gocode/bin"
+
