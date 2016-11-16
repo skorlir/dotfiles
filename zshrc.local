@@ -43,3 +43,10 @@ source $HOME/dev/~installs/z/z.sh
 export GOPATH="$HOME/dev/~installs/gocode/"
 export PATH="$PATH:$HOME/dev/~installs/gocode/bin"
 
+# If st, run tmux.
+if [[ "$TERM" = "st-256color" ]]; then
+  if [[ -z "$TMUX" ]]; then
+    tmux at || tmux new
+  fi
+fi
+
