@@ -34,11 +34,14 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export PATH="$PATH:$HOME/.local/bin"
 
 # Add z
-source $HOME/dev/~installs/z/z.sh
+source $HOME/software/z/z.sh
 
 # Go
-export GOPATH="$HOME/dev/~installs/gocode/"
-export PATH="$PATH:$HOME/dev/~installs/gocode/bin"
+export GOPATH="$HOME/software/gocode/"
+export PATH="$PATH:$HOME/software/gocode/bin"
+
+# Racket
+export PATH="$PATH:$HOME/software/racket/bin"
 
 # If st, run tmux.
 if [[ "$TERM" = "st-256color" ]]; then
