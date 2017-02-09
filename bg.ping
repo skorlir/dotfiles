@@ -1,0 +1,14 @@
+#!/bin/bash
+PING_URIS="fluffywaffles.io audit.mmlc.northwestern.edu"
+
+while true; do
+  for uri in $PING_URIS; do
+    ping -c 1 $uri > /dev/null 2>/dev/null
+    if [ $? -ne 0 ]; then
+      # Ping failed! Notify.
+      tput bel
+      # Do something better than bel. Pushover/Pushed? IDK.
+    fi
+  done
+  sleep $(expr 60 \* 60 \* 6) # Every 6 hours.
+done
