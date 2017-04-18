@@ -2,7 +2,9 @@
 export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="norm"
+if [[ $DISPLAY ]]; then
+	ZSH_THEME="norm"
+fi
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -67,8 +69,10 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# fuck shit up
-setxkbmap -option ctrl:nocaps
+# Fuck shit up
+if [[ $DISPLAY ]]; then
+	setxkbmap -option ctrl:nocaps
+fi
 
 # Custom configuration
 source ~/.zshrc.local
