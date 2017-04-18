@@ -67,9 +67,12 @@ fi
 
 # Custom configuration
 source ~/.zshrc.local
-source ~/.zshrc.sensitive
 source ~/.aliases
 source ~/.functions
+# Any information that shouldn't be tracked in git should be in a different file
+if [[ -e ~/.zshrc.sensitive ]]; then
+	source ~/.zshrc.sensitive
+fi
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
