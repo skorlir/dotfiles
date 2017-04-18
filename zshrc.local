@@ -61,21 +61,27 @@ fi
 # Vi keybindings
 bindkey -v
 
+gte () {
+  [ $1 -gt $2 ] || [ $1 -eq $2 ]
+}
+
 # Print a visual indicator on the right prompt while in normal mode.
 function zle-line-init zle-keymap-select {
   VIM_PROMPT="%{$fg_bold[green]%} [%  VI_NORM ]% %{$reset_color%}"
   battery_ct=$(battery-%)
   battery_st=$(battery-state)
-  if [[ $battery_ct -gt 85 ]]; then
-    battery_color="%{$FG[green]%}" # green
-  elif [[ $battery_ct -gt 70 ]]; then
-    battery_color="%{$FG[154]%}"   # yellow-green
-  elif [[ $battery_ct -gt 50 ]]; then
-    battery_color="%{$FG[011]%}"   # yellow
-  elif [[ $battery_ct -gt 50 ]]; then
-    battery_color="%{$FG[202]%}"   # orange
-  elif [[ $battery_ct -gt 30 ]]; then
-    battery_color="%{$FG[red]%}"   # red
+  if gte $battery_ct 85; then
+    battery_color="%{$FG[118]%}" # green
+  elif gte $battery_ct 70; then
+    battery_color="%{$FG[154]%}" # yellow-green
+  elif gte $battery_ct 50; then
+    battery_color="%{$FG[011]%}" # yellow
+  elif gte $battery_ct 30; then
+    battery_color="%{$FG[202]%}" # orange
+  elif gte $battery_ct 10; then
+    battery_color="%{$FG[196]%}" # pale red
+  elif gte $battery_ct 0; then
+    battery_color="%{$FG[009]%}" # really red
   fi
   battery="$battery_color$battery_ct%% ($battery_st)%{$reset_color%}"
   RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $battery$EPS1"
