@@ -76,9 +76,3 @@ fi
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-### Added by the Heroku Toolbelt
-export PATH="$PATH:/usr/local/heroku/bin"
-
-# RVM because fuck it I guess sometimes you have to use Ruby
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
