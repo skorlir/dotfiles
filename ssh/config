@@ -1,0 +1,17 @@
+Host fw
+  HostName fluffywaffles
+  Port 55555
+  User french
+
+Host homebase-root
+  HostName sandbox
+  Port 55555
+  User root
+  IdentityFile ~/.ssh/homebase_root_id_rsa.pub
+
+Host homebase-tunnel
+  HostName sandbox
+  Port 55555
+  User tunnel
+  IdentityFile ~/.ssh/tunnel_root_id_rsa.pub
+

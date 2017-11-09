@@ -1,0 +1,2 @@
+#!/bin/sh
+exec 'feh' '--randomize' '--bg-fill' '/home/fluffywaffles/.wallpapers'
