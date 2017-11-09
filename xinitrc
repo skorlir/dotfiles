@@ -43,6 +43,6 @@ fi
 # exec gnome-session
 
 # bspwm
-~/setup-feh
+~/.fehbg
 sxhkd &
 exec bspwm
