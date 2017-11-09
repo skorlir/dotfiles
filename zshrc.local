@@ -1,73 +1,75 @@
-# glahb
-setopt extendedglob
-
-# Pls nvim pls
-export EDITOR="nvim"
-
-# Java
-# export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"
-
-# Android
-# export PATH="$PATH:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/build-tools/24.0.1"
+#
+# Path!
+# Djikstra! ... would be confused to know he is referenced here.
+#
 
 # Ruby
-# export GEM_HOME="$HOME/.gem"
-# export PATH="$HOME/.gem/bin:$PATH"
+export GEM_HOME="$HOME/.gem"
+export PATH="$PATH:$HOME/.gem/ruby/2.4.0/bin"
 
-# Add rbenv to path
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# Initialize rbenv
-# eval "$(rbenv init -)"
+# Cargo (Rust)
+export PATH="$PATH:$HOME/.cargo/bin"
 
-# RVM because fuck it I guess sometimes you have to use Ruby
-# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Perl --- because pod2man is often required in builds from AUR
+source /etc/profile.d/perlbin.sh # fkn perl
 
-# Add .functions to FPATH and autoload
-export FPATH="$HOME/.functions:$FPATH"
+# Local bins
+export PATH="$PATH:$HOME/.local/bin"
 
-# Autoload some defined funcs in FPATH
-autoload viz
+#
+# Keyboard
+# QWERT
+#
 
-# ng (Angular 2 CLI) completion setup
-# source $HOME/.zshrc.ng.completion
+# Go it, fastly!
+export KEYTIMEOUT=1
 
-# Better FZF
+# Vi keybindings
+bindkey -v
+
+# Keybindings that should be preserved even after entering and exiting vi normal mode.
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+
+# ibus
+export GTK_IM_MODULE=ibus  # youbus
+export XMODIFIERS=@im=ibus # webus
+export QT_IM_MODULE=ibus   # bus is life
+
+#
+# Aliases, functions, source-able software (plugins), ...?
+#
+
+# nvim pls
+export EDITOR="nvim"
+
+# Aliaseses
+source ~/.aliases
+
+# Better FZF (using ag for filtering)
 export FZF_DEFAULT_COMMAND='ag -g ""'
-
-# Pip3 (Python 3)
-# export PATH="$PATH:$HOME/.local/bin"
 
 # Add z
 source $HOME/software/z/z.sh
 
-# Go
-# export PATH="$PATH:/usr/local/go/bin"
-# export GOPATH="$HOME/software/gocode/"
-# export PATH="$PATH:$HOME/software/gocode/bin"
-
-# Racket
-# export PATH="$PATH:$HOME/software/racket/bin"
-
-### Added by the Heroku Toolbelt
-# export PATH="$PATH:/usr/local/heroku/bin"
-
-# If st, run tmux.
-if [[ "$TERM" = "st-256color" ]]; then
-  if [[ -z "$TMUX" ]]; then
-    tmux at || tmux new
-  fi
-fi
-
-# Vi keybindings
-bindkey -v
+#
+# Battery functions (used below)
+#
 
 gte () {
   [ $1 -gt $2 ] || [ $1 -eq $2 ]
 }
 
-# Print a visual indicator on the right prompt while in normal mode.
-function zle-line-init zle-keymap-select {
-  VIM_PROMPT="%{$fg_bold[green]%} [%  VI_NORM ]% %{$reset_color%}"
+function battery-% {
+  acpi | cut -d, -f2 | tr -d ' %' | head -n1
+}
+
+function battery-state {
+  acpi | cut -d, -f1 | cut -d: -f2 | tr -d ' ' | tr A-Z a-z | head -n1
+}
+
+function visual-battery {
   battery_ct=$(battery-%)
   battery_st=$(battery-state)
   if gte $battery_ct 85; then
@@ -79,23 +81,60 @@ function zle-line-init zle-keymap-select {
   elif gte $battery_ct 30; then
     battery_color="%{$FG[202]%}" # orange
   elif gte $battery_ct 10; then
-    battery_color="%{$FG[196]%}" # pale red
+    battery_color="%{$FG[009]%}" # pale red
   elif gte $battery_ct 0; then
-    battery_color="%{$FG[009]%}" # really red
+    battery_color="%{$FG[196]%}" # really red
   fi
-  battery="$battery_color$battery_ct%% ($battery_st)%{$reset_color%}"
-  RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $battery$EPS1"
-  zle reset-prompt
+  echo "$battery_color$battery_ct%% ($battery_st)%{$reset_color%}"
 }
 
-# Register the above widget functions.
-zle -N zle-line-init
-zle -N zle-keymap-select
+#
+# Da PrompT
+# λ λ λ
+#
 
-# Make it go fast.
-export KEYTIMEOUT=1
+# Only do all this if we're running X...
+if [[ $DISPLAY ]]; then
+  # Shorten the prompt
+  # Stolen (!) from the "norm" zsh theme in OMZ
+  PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 
-# Keybindings that should be preserved even after entering and exiting vi normal mode.
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
+  #
+  # RPrompT (the one on the right!)
+  # Print battery visual indicator and vim-mode on right-hand side of prompt
+  #
+
+  VIM_NORMAL_MODE="%{$fg_bold[blue]%} [%  nrm ]% %{$reset_color%}"
+  VIM_INSERT_MODE="%{$fg_bold[green]%} [%  ins ]% %{$reset_color%}"
+
+  # Draw at start of each line print, and when keymap changes
+  function update-rprompt {
+    battery=$(visual-battery)
+    RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} $battery$EPS1"
+  }
+
+  # Widget functions (for when zsh redraws the prompt)
+  function zle-line-init zle-keymap-select {
+    update-rprompt
+    zle reset-prompt
+  }
+
+  # Register the widget functions
+  zle -N zle-line-init
+  zle -N zle-keymap-select
+
+  # Do it at source-time too!
+  update-rprompt
+fi
+
+#
+# Misc
+# Weird config stuff that maybe I shouldn't have
+#
+
+# If st, run tmux.
+if [[ "$TERM" = "st-256color" ]]; then
+  if [[ -z "$TMUX" ]]; then
+    tmux at || tmux new
+  fi
+fi

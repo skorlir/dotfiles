@@ -1,18 +1,8 @@
 alias open=xdg-open
 
-alias pdf='evince'
-
-alias glogout='gnome-session-quit --logout --no-prompt'
-alias npm-init='npm init -y'
-
-# n: don't read stdin, N: don't run a remote command, T: no tty, D: proxy everything via 1080, o: option, ServerAliveInterval: send a keepalive packet
-alias run-proxy='ssh -nNTD 1080 homebase-tunnel -o "ServerAliveInterval 60"'
-alias proxy-tmux-bg='tmux neww -n "tunnel" run-proxy'
+alias pdf='mupdf'
 
 alias ta='tmux attach'
-alias tl='tmux list-w'
-
-alias wviz='watch -n 0.1 -tc $HOME/.functions/viz'
 
 alias clip='xclip -sel clip'
 #alias clip='pbcopy' # OS X
@@ -21,19 +11,19 @@ alias clip='xclip -sel clip'
 #alias ramdisk-rm="sudo umount /media/$(whoami)/ramdisk && echo \"Ramdisk DOWN at /media/$(whoami)/ramdisk\""
 #alias ramdisk-down=ramdisk-rm
 
-# make it pretty
-#alias ls='ls++'
-#alias ls='ls --sort=extension'
-
+alias t=tmux
 alias vim=nvim
+alias svim="sudo -EPS nvim"
+alias ncgrep="grep --color=never"
 
-alias battery-%="acpi | cut -d, -f2 | tr -d ' %'"
-alias battery-state="acpi | cut -d, -f1 | cut -d: -f2 | tr -d ' ' | tr A-Z a-z"
+alias clock="date +'%A %r'"
 
-set-volume () { amixer sset Master $1% }
+volume () { amixer sset Master $1% }
+backlight () { sudo xbacklight $1 }
 
-system-sleep () { sudo /usr/lib/systemd/systemd-sleep $1 }
+suspend () { slock & systemctl suspend }
+hibernate () { systemctl hibernate }
+hybrid-sleep () { systemctl hybrid-sleep }
 
-system-suspend () { system-sleep suspend }
-system-hibernate () { system-sleep hibernate }
-system-hybrid-sleep () { system-sleep hybrid-sleep }
+alias sxs="dzen2 -bg lightgreen -p -fg white -y $((2080/2)) -x $(((3120 - 1000/2)/2)) -tw 1000"
+alias fxs="dzen2 -bg red -p -fg white -y $((2080/2)) -x $(((3120 - 100/2)/2)) -tw 1000"

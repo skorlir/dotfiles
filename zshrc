@@ -6,6 +6,9 @@ if [[ $DISPLAY ]]; then
 	ZSH_THEME="norm"
 fi
 
+# Stop fucking with my window titles, OMZ!
+DISABLE_AUTO_TITLE="true"
+
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
@@ -20,7 +23,7 @@ fi
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -67,8 +70,7 @@ fi
 
 # Custom configuration
 source ~/.zshrc.local
-source ~/.aliases
-source ~/.functions
+
 # Any information that shouldn't be tracked in git should be in a different file
 if [[ -e ~/.zshrc.sensitive ]]; then
 	source ~/.zshrc.sensitive
