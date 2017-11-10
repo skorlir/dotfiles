@@ -170,7 +170,7 @@ static unsigned int tabspaces = 2;
  * Misterioso (good contrast)
  *
  */
-#include "./colors/idleToes.h"
+#include "../../colors/idleToes.h"
 
 /*
  * Default shape of cursor
