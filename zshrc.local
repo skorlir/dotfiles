@@ -51,7 +51,7 @@ source ~/.aliases
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Add z
-source $HOME/software/z/z.sh
+source $HOME/software/z/src/z-1.9/z.sh
 
 #
 # Battery functions (used below)
