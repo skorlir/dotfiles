@@ -179,7 +179,7 @@ static unsigned int tabspaces = 2;
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-unsigned int cursorshape = 2;
+unsigned int cursorshape = 6;
 
 /*
  * Default columns and rows numbers
