@@ -98,34 +98,36 @@ if [[ $DISPLAY ]]; then
   # Shorten the prompt
   # Stolen (!) from the "norm" zsh theme in OMZ
   PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
-
-  #
-  # RPrompT (the one on the right!)
-  # Print battery visual indicator and vim-mode on right-hand side of prompt
-  #
-
-  VIM_NORMAL_MODE="%{$fg_bold[blue]%} [%  nrm ]% %{$reset_color%}"
-  VIM_INSERT_MODE="%{$fg_bold[green]%} [%  ins ]% %{$reset_color%}"
-
-  # Draw at start of each line print, and when keymap changes
-  function update-rprompt {
-    battery=$(visual-battery)
-    RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} $battery$EPS1"
-  }
-
-  # Widget functions (for when zsh redraws the prompt)
-  function zle-line-init zle-keymap-select {
-    update-rprompt
-    zle reset-prompt
-  }
-
-  # Register the widget functions
-  zle -N zle-line-init
-  zle -N zle-keymap-select
-
-  # Do it at source-time too!
-  update-rprompt
+else
+  PROMPT='%{$fg[yellow]%}. %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 fi
+
+#
+# RPrompT (the one on the right!)
+# Print battery visual indicator and vim-mode on right-hand side of prompt
+#
+
+VIM_NORMAL_MODE="%{$fg_bold[blue]%} [%  nrm ]% %{$reset_color%}"
+VIM_INSERT_MODE="%{$fg_bold[green]%} [%  ins ]% %{$reset_color%}"
+
+# Draw at start of each line print, and when keymap changes
+function update-rprompt {
+  # battery=$(visual-battery)
+  RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} $EPS1"
+}
+
+# Widget functions (for when zsh redraws the prompt)
+function zle-line-init zle-keymap-select {
+update-rprompt
+zle reset-prompt
+}
+
+# Register the widget functions
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# Do it at source-time too!
+update-rprompt
 
 #
 # Misc
