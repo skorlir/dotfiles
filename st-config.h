@@ -7,7 +7,7 @@
  */
 //char font[] = "Fixed:pixelsize=13:style=SemiCondensed";
 char font[] = "Mononoki:pixelsize=28";
-int borderpx = 2;
+int borderpx = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
