@@ -1,0 +1,2 @@
+#!/bin/sh
+surf -Bz 1.5 "encurate.atlassian.net/secure/RapidBoard.jspa?projectKey=UN&view=planning"
