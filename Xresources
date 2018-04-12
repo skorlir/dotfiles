@@ -24,4 +24,4 @@
 ! No support for cursor text coloring; would be #090300.
 ! No support for bold coloring; would be #a5a2a2.
 ! NOTE: smaller numbers -> less upscaling
-Xft.dpi: 225
+Xft.dpi: 125
