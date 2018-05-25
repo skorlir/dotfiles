@@ -6,7 +6,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 //char *font = "Fixed:pixelsize=13:style=SemiCondensed";
-static char *font = "Mononoki,FiraCode:size=9:spacing=monospace";
+static char *font = "monospace:size=9";
 static int borderpx = 0;
 
 /*
