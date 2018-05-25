@@ -53,6 +53,13 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 # Add z
 source $HOME/software/z/src/z-1.9/z.sh
 
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
 #
 # Battery functions (used below)
 #
