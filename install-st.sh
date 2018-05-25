@@ -4,7 +4,7 @@
 
 cower -ddt ~/software st-git
 
-cd ~/sssoftware/st-git
+cd ~/software/st-git
 
 ln -s ~/.st-config.h config.h
 ln -s ~/.st-colors colors
