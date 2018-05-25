@@ -43,6 +43,6 @@ fi
 # exec gnome-session
 
 # bspwm
-~/.fehbg
+~/.feh-set-background
 sxhkd &
 exec bspwm
