@@ -125,8 +125,8 @@ function update-rprompt {
 
 # Widget functions (for when zsh redraws the prompt)
 function zle-line-init zle-keymap-select {
-update-rprompt
-zle reset-prompt
+  update-rprompt
+  zle reset-prompt
 }
 
 # Register the widget functions
@@ -135,15 +135,3 @@ zle -N zle-keymap-select
 
 # Do it at source-time too!
 update-rprompt
-
-#
-# Misc
-# Weird config stuff that maybe I shouldn't have
-#
-
-# If st, run tmux.
-if [[ "$TERM" = "st-256color" ]]; then
-  if [[ -z "$TMUX" ]]; then
-    tmux at || tmux new
-  fi
-fi
