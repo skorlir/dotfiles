@@ -1,0 +1,2 @@
+#!/bin/sh
+surf -Bz 1.5 "encurate.slack.com/messages"
