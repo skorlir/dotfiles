@@ -43,6 +43,7 @@ fi
 # exec gnome-session
 
 # bspwm
+xrandr --output DP-0 --rotate left
 ~/.feh-set-background
 sxhkd &
 exec bspwm
