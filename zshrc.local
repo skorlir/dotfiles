@@ -32,6 +32,9 @@ bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 
+# Give me extended glob support
+setopt extendedglob
+
 # ibus
 export GTK_IM_MODULE=ibus  # youbus
 export XMODIFIERS=@im=ibus # webus
