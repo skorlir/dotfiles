@@ -52,6 +52,9 @@ plugins=(git)
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# Add zsh custom functions to autoload path
+export fpath=(~/.functions $fpath)
+
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment

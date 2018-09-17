@@ -5,9 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-//char *font = "Fixed:pixelsize=13:style=SemiCondensed";
-static char *font = "monospace:size=9";
-static int borderpx = 0;
+static char *font = "monospace:size=9:anitalias=true:autohint=true";
+static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -33,7 +32,7 @@ static float chscale = 1.0;
  *
  * More advanced example: " `'\"()[]{}"
  */
-char *worddelimiters = " '`\"()[]{}<>|";
+char *worddelimiters = " ";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -64,7 +63,7 @@ static unsigned int cursorthickness = 1;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "xterm-256color";
+char *termname = "st-256color";
 
 /*
  * spaces per tab
@@ -179,7 +178,7 @@ unsigned int tabspaces = 2;
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-static unsigned int cursorshape = 6;
+static unsigned int cursorshape = 2;
 
 /*
  * Default columns and rows numbers
