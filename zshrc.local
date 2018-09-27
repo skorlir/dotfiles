@@ -58,10 +58,10 @@ source $HOME/software/z/src/z-1.9/z.sh
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
 #
 # Battery functions (used below)
@@ -103,13 +103,13 @@ function visual-battery {
 # λ λ λ
 #
 
-# Only do all this if we're running X...
-if [[ $DISPLAY ]]; then
+# Only do all this if we're in a decent terminal...
+if [ $TERM != "linux" ]; then
   # Shorten the prompt
   # Stolen (!) from the "norm" zsh theme in OMZ
   PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
 else
-  PROMPT='%{$fg[yellow]%}. %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+  PROMPT='%{$fg[yellow]%}. %{$fg[green]%}%c %{$fg[yellow]%}> $(git_prompt_info)%{$reset_color%}'
 fi
 
 #
@@ -122,8 +122,8 @@ VIM_INSERT_MODE="%{$fg_bold[green]%} [%  ins ]% %{$reset_color%}"
 
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
-  # battery=$(visual-battery)
-  RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} $EPS1"
+  battery=$(visual-battery)
+  RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} ${battery} $EPS1"
 }
 
 # Widget functions (for when zsh redraws the prompt)

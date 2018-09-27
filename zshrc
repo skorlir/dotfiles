@@ -1,11 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
-# Set name of the theme to load.
-if [[ $DISPLAY ]]; then
-	ZSH_THEME="norm"
-fi
-
 # Stop fucking with my window titles, OMZ!
 DISABLE_AUTO_TITLE="true"
 
@@ -67,7 +62,7 @@ export LANG=en_US.UTF-8
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Fuck shit up
-if [[ $DISPLAY ]]; then
+if [ $DISPLAY ]; then
 	setxkbmap -option ctrl:nocaps
 fi
 
@@ -75,16 +70,9 @@ fi
 source ~/.zshrc.local
 
 # Any information that shouldn't be tracked in git should be in a different file
-if [[ -e ~/.zshrc.sensitive ]]; then
+if [ -e ~/.zshrc.sensitive ]; then
 	source ~/.zshrc.sensitive
 fi
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
