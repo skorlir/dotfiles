@@ -3,6 +3,11 @@ Host fw
   Port 55555
   User french
 
+Host pepperoni
+  HostName pepperoni
+  User jtt258
+  IdentityFile ~/.ssh/pepperoni_id_rsa
+
 Host homebase-root
   HostName sandbox
   Port 55555
