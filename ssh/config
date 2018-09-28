@@ -7,16 +7,3 @@ Host pepperoni
   HostName pepperoni
   User jtt258
   IdentityFile ~/.ssh/pepperoni_id_rsa
-
-Host homebase-root
-  HostName sandbox
-  Port 55555
-  User root
-  IdentityFile ~/.ssh/homebase_root_id_rsa.pub
-
-Host homebase-tunnel
-  HostName sandbox
-  Port 55555
-  User tunnel
-  IdentityFile ~/.ssh/tunnel_root_id_rsa.pub
-
