@@ -3,16 +3,6 @@
 # Djikstra! ... would be confused to know he is referenced here.
 #
 
-# Ruby
-export GEM_HOME="$HOME/.gem"
-export PATH="$PATH:$HOME/.gem/ruby/2.4.0/bin"
-
-# Cargo (Rust)
-export PATH="$PATH:$HOME/.cargo/bin"
-
-# Perl --- because pod2man is often required in builds from AUR
-source /etc/profile.d/perlbin.sh # fkn perl
-
 # Local bins
 export PATH="$PATH:$HOME/.local/bin"
 
@@ -54,14 +44,7 @@ source ~/.aliases
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Add z
-source $HOME/software/z/src/z-1.9/z.sh
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ] && . /home/fluffywaffles/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+source $HOME/.local/zsh-functions/z/z.sh
 
 #
 # Battery functions (used below)
@@ -126,7 +109,7 @@ VIM_INSERT_MODE="%{$fg_bold[green]%} [%  ins ]% %{$reset_color%}"
 
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
-  battery=$(visual-battery)
+  # battery=$(visual-battery)
   RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} ${battery} $EPS1"
 }
 
