@@ -125,3 +125,8 @@ zle -N zle-keymap-select
 
 # Do it at source-time too!
 update-rprompt
+
+# Host-specific configuration
+if [ -e $HOME/.zshrc.$(hostname) ]; then
+  source $HOME/.zshrc.$(hostname)
+fi
