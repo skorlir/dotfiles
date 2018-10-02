@@ -3,8 +3,8 @@
 # Djikstra! ... would be confused to know he is referenced here.
 #
 
-# Local bins
-export PATH="$PATH:$HOME/.local/bin"
+# Local bins come *first*
+export PATH="$HOME/.local/bin:$PATH"
 
 #
 # Keyboard
