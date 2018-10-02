@@ -90,11 +90,11 @@ function visual-battery {
 if [ $TERM != "linux" ]; then
   # Shorten the prompt
   # Stolen (!) from the "norm" zsh theme in OMZ
-  PROMPT='%{$fg[yellow]%}λ %{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
+  PROMPT='%{$fg[yellow]%}λ $(prompt_extra)%{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
   ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} → %{$reset_color%}"
 else
-  PROMPT='%{$fg[yellow]%}. %{$fg[green]%}%c %{$fg[yellow]%}> $(git_prompt_info)%{$reset_color%}'
+  PROMPT='%{$fg[yellow]%}. $(prompt_extra)%{$fg[green]%}%c %{$fg[yellow]%}> $(git_prompt_info)%{$reset_color%}'
   ZSH_THEME_GIT_PROMPT_PREFIX=". %{$fg[blue]%}git %{$fg[red]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} > %{$reset_color%}"
 fi
