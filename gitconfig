@@ -1,3 +1,5 @@
 [user]
 	email = skorlir@gmail.com
 	name = fluffywaffles
+[push]
+	default = simple
