@@ -39,8 +39,20 @@ fi
 # Here's where actual user-stuff happens
 #
 
-# bspwm
-xrandr --output DP-0 --rotate left
+# Rotate connected output(s)
+xrandr -q                                           \
+  | grep "\bconnected\b"                            \
+  | while read -r monitor
+  do echo $monitor                                  \
+    | cut -d' ' -f1                                 \
+    | xargs -I {} xrandr --output {} --rotate left
+  done
+
+# Set random background image
 ~/.feh-set-background
+
+# Start simple X hotkey daemon
 sxhkd &
+
+# Replace process with bspwm (window manager)
 exec bspwm
