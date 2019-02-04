@@ -89,6 +89,10 @@ function visual-battery {
 # λ λ λ
 #
 
+function prompt_extra () {
+  # Overwrite this in hostname-specific configuration.
+}
+
 # Only do all this if we're in a decent terminal...
 if [ $TERM != "linux" ]; then
   # Shorten the prompt
