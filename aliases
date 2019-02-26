@@ -29,3 +29,4 @@ alias sxs="dzen2 -bg lightgreen -p -fg white -y $((2080/2)) -x $(((3120 - 1000/2
 alias fxs="dzen2 -bg red -p -fg white -y $((2080/2)) -x $(((3120 - 100/2)/2)) -tw 1000"
 
 alias l="ls -1"
+alias gpa="git remote | xargs -IR git push R"
