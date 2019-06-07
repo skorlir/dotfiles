@@ -54,17 +54,17 @@ source $HOME/.local/zsh-functions/z/z.sh
 #
 
 function batpower-setup {
-  local battery_listing=${BATPOWER_BATTERIES:-$(ls -d /sys/class/power_supply/BAT*)}
+  setopt +o nomatch # NOTE: suppress 'no match' error message
+  local detected_batteries=$(ls -d /sys/class/power_supply/BAT* &>/dev/null)
+  setopt -o nomatch
+  local battery_listing=${BATPOWER_BATTERIES:-$detected_batteries}
   local batteries=()
   # NOTE: zsh: expansions don't perform word-splitting unless you use ${=...}
   for battery in ${=battery_listing}; do batteries+=($battery) done
   local battery_count=${#batteries}
   local selected_battery=''
   # If there are no batteries, fail.
-  if   [[ $battery_count -eq 0 ]]; then
-    >&2 printf 'batpower: no batteries detected! batpower disabled.\n'
-    exit 1
-  fi
+  [[ $battery_count -eq 0 ]] && return 1
   # Otherwise, select the 1st battery.
   if [[ $battery_count -ge 1 ]]; then
     selected_battery=${batteries[1]}
