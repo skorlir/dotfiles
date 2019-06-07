@@ -95,10 +95,7 @@ function batpower-fmt-status {
 }
 
 function batpower-visual-battery {
-  batpower-enabled || {
-    printf ''
-    return 0
-  }
+  batpower-enabled || return 0
   local bat_charge=$(batpower-charge)
   local bat_status=$(batpower-status)
   local color=""
@@ -153,14 +150,14 @@ fi
 
 # NOTE: without this, there's space after the RPROMPT
 ZLE_RPROMPT_INDENT=0
-VIM_NORMAL_MODE="%{$FX[bold]$fg[blue]%} [% nrm]% %{$reset_color%}"
-VIM_INSERT_MODE="%{$FX[bold]$fg[grey]%} [% ins]% %{$reset_color%}"
+VIM_NORMAL_MODE="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
+VIM_INSERT_MODE="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
 
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
-  printf -v RPROMPT '%s %s$EPS1'                                        \
+  printf -v RPROMPT '%s%s$EPS1'                                         \
     "${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE}" \
-    "$(batpower-visual-battery)"
+    "${batpower_enabled:+ }$(batpower-visual-battery)"
 }
 
 # Widget functions (for when zsh redraws the prompt)
