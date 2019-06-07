@@ -53,35 +53,71 @@ source $HOME/.local/zsh-functions/z/z.sh
 # Battery functions (used below)
 #
 
-gte () {
-  [ $1 -gt $2 ] || [ $1 -eq $2 ]
-}
-
-function battery-% {
-  acpi | cut -d, -f2 | tr -d ' %' | head -n1
-}
-
-function battery-state {
-  acpi | cut -d, -f1 | cut -d: -f2 | tr -d ' ' | tr A-Z a-z | head -n1
-}
-
-function visual-battery {
-  battery_ct=$(battery-%)
-  battery_st=$(battery-state)
-  if gte $battery_ct 85; then
-    battery_color="%{$FG[118]%}" # green
-  elif gte $battery_ct 70; then
-    battery_color="%{$FG[154]%}" # yellow-green
-  elif gte $battery_ct 50; then
-    battery_color="%{$FG[011]%}" # yellow
-  elif gte $battery_ct 30; then
-    battery_color="%{$FG[202]%}" # orange
-  elif gte $battery_ct 10; then
-    battery_color="%{$FG[009]%}" # pale red
-  elif gte $battery_ct 0; then
-    battery_color="%{$FG[196]%}" # really red
+function batpower-setup {
+  local battery_listing=${BATPOWER_BATTERIES:-$(ls -d /sys/class/power_supply/BAT*)}
+  local batteries=()
+  # NOTE: zsh: expansions don't perform word-splitting unless you use ${=...}
+  for battery in ${=battery_listing}; do batteries+=($battery) done
+  local battery_count=${#batteries}
+  local selected_battery=''
+  # If there are no batteries, fail.
+  if   [[ $battery_count -eq 0 ]]; then
+    >&2 printf 'batpower: no batteries detected! batpower disabled.\n'
+    exit 1
   fi
-  echo "$battery_color$battery_ct%% ($battery_st)%{$reset_color%}"
+  # Otherwise, select the 1st battery.
+  if [[ $battery_count -ge 1 ]]; then
+    selected_battery=${batteries[1]}
+    # When there's more than 1 battery, issue a notice
+    if [[ $battery_count -gt 1 ]]; then
+      printf 'batpower: multiple batteries detected! \n  %s\n' \
+        "batteries=($batteries)"
+    fi
+  fi
+  printf 'batpower: battery set: %s.\n' $selected_battery
+  declare -g batpower_enabled=0
+  declare -g batpower_battery_capacity_file="$selected_battery/capacity"
+  declare -g batpower_battery_status_file="$selected_battery/status"
+}
+
+function batpower-enabled { return ${batpower_enabled:=1} }
+function batpower-charge { batpower-enabled && cat $batpower_battery_capacity_file }
+function batpower-status { batpower-enabled && cat $batpower_battery_status_file }
+function batpower-fmt-charge { printf '%s%s' $1 '%%' }
+function batpower-fmt-status {
+  local status_symbol='?'
+  case $1 in
+    ( "Full" | "Unknown" ) status_symbol='▬';;
+    ( "Charging"         ) status_symbol='▲';;
+    ( "Discharging"      ) status_symbol='▼';;
+  esac
+  printf '%s▐' $status_symbol
+}
+
+function batpower-visual-battery {
+  batpower-enabled || {
+    printf ''
+    return 0
+  }
+  local bat_charge=$(batpower-charge)
+  local bat_status=$(batpower-status)
+  local color=""
+  if   [[ $bat_charge -ge 85 ]]; then
+    color="$FG[118]" # green
+  elif [[ $bat_charge -ge 50 ]]; then
+    color="$FG[154]" # yellow-green
+  elif [[ $bat_charge -ge 35 ]]; then
+    color="$FG[011]" # yellow
+  elif [[ $bat_charge -ge 20 ]]; then
+    color="$FG[208]" # orange
+  elif [[ $bat_charge -ge 00 ]]; then
+    color="$FG[196]" # red
+  fi
+  printf "%s%s %s%s"                   \
+    "%{${color}%}"                     \
+    $(batpower-fmt-charge $bat_charge) \
+    $(batpower-fmt-status $bat_status) \
+    "%{$reset_color%}"
 }
 
 #
@@ -89,21 +125,25 @@ function visual-battery {
 # λ λ λ
 #
 
-function prompt_extra () {
-  # Overwrite this in hostname-specific configuration.
-}
-
 # Only do all this if we're in a decent terminal...
-if [ $TERM != "linux" ]; then
+if [[ $TERM != "linux" ]]; then
   # Shorten the prompt
   # Stolen (!) from the "norm" zsh theme in OMZ
-  PROMPT='%{$fg[yellow]%}λ $(prompt_extra)%{$fg[green]%}%c %{$fg[yellow]%}→ $(git_prompt_info)%{$reset_color%}'
-  ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
-  ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} → %{$reset_color%}"
+  printf -v PROMPT '%s %s%s%s '         \
+    '%{$fg[yellow]%}▌ƒ▐'                \
+    '%{$fg[green]%}%c'                  \
+    '%{$fg[yellow]%}$(git_prompt_info)' \
+    '%{$reset_color%}'
+  ZSH_THEME_GIT_PROMPT_PREFIX=" ∙ %{$fg[red]%}"
+  ZSH_THEME_GIT_PROMPT_SUFFIX=""
 else
-  PROMPT='%{$fg[yellow]%}. $(prompt_extra)%{$fg[green]%}%c %{$fg[yellow]%}> $(git_prompt_info)%{$reset_color%}'
-  ZSH_THEME_GIT_PROMPT_PREFIX=". %{$fg[blue]%}git %{$fg[red]%}"
-  ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} > %{$reset_color%}"
+  printf -v PROMPT '%s %s%s%s '         \
+    '%{$fg[yellow]%}f'                  \
+    '%{$fg[green]%}%c'                  \
+    '%{$fg[yellow]%}$(git_prompt_info)' \
+    '%{$reset_color%}'
+  ZSH_THEME_GIT_PROMPT_PREFIX=" . %{$fg[red]%}"
+  ZSH_THEME_GIT_PROMPT_SUFFIX=""
 fi
 
 #
@@ -111,18 +151,21 @@ fi
 # Print battery visual indicator and vim-mode on right-hand side of prompt
 #
 
-VIM_NORMAL_MODE="%{$fg_bold[blue]%} [%  nrm ]% %{$reset_color%}"
-VIM_INSERT_MODE="%{$fg_bold[green]%} [%  ins ]% %{$reset_color%}"
+# NOTE: without this, there's space after the RPROMPT
+ZLE_RPROMPT_INDENT=0
+VIM_NORMAL_MODE="%{$FX[bold]$fg[blue]%} [% nrm]% %{$reset_color%}"
+VIM_INSERT_MODE="%{$FX[bold]$fg[grey]%} [% ins]% %{$reset_color%}"
 
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
-  # battery=$(visual-battery)
-  RPROMPT="${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE} ${battery} $EPS1"
+  printf -v RPROMPT '%s %s$EPS1'                                        \
+    "${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE}" \
+    "$(batpower-visual-battery)"
 }
 
 # Widget functions (for when zsh redraws the prompt)
 function zle-line-init zle-keymap-select {
-  # update-rprompt
+  update-rprompt
   zle reset-prompt
 }
 
@@ -130,8 +173,9 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# Do it at source-time too!
-# update-rprompt
+# Set up batpower and rprompt!
+batpower-setup >/dev/null
+update-rprompt
 
 # Host-specific configuration
 if [ -e $HOME/.zshrc.$(hostname) ]; then
