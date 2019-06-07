@@ -55,7 +55,7 @@ source $HOME/.local/zsh-functions/z/z.sh
 
 function batpower-setup {
   setopt +o nomatch # NOTE: suppress 'no match' error message
-  local detected_batteries=$(ls -d /sys/class/power_supply/BAT* &>/dev/null)
+  local detected_batteries=$(ls -d /sys/class/power_supply/BAT* 2>/dev/null)
   setopt -o nomatch
   local battery_listing=${BATPOWER_BATTERIES:-$detected_batteries}
   local batteries=()
