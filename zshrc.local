@@ -118,29 +118,41 @@ function batpower-visual-battery {
 }
 
 #
+# ZLE (zsh line editor)
+#
+
+# NOTE: which characters should be removed during completion? (not pipe)
+ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
+
+# NOTE: without this, there's space after the RPROMPT
+# NOTE: this can only be disabled within tmux
+if [[ -n "$TMUX" ]]; then
+  ZLE_RPROMPT_INDENT=0
+fi
+
+#
 # Da PrompT
-# λ λ λ
 #
 
 # Only do all this if we're in a decent terminal...
 if [[ $TERM != "linux" ]]; then
   # Shorten the prompt
   # Stolen (!) from the "norm" zsh theme in OMZ
-  printf -v PROMPT '%s %s%s%s '         \
+  printf -v PROMPT "%s %s %s%s"         \
     '%{$fg[yellow]%}▌ƒ▐'                \
     '%{$fg[green]%}%c'                  \
     '%{$fg[yellow]%}$(git_prompt_info)' \
     '%{$reset_color%}'
-  ZSH_THEME_GIT_PROMPT_PREFIX=" ∙ %{$fg[red]%}"
-  ZSH_THEME_GIT_PROMPT_SUFFIX=""
+  ZSH_THEME_GIT_PROMPT_PREFIX="∙ %{$fg[red]%}"
+  ZSH_THEME_GIT_PROMPT_SUFFIX=" "
 else
-  printf -v PROMPT '%s %s%s%s '         \
+  printf -v PROMPT "%s %s %s%s"         \
     '%{$fg[yellow]%}f'                  \
     '%{$fg[green]%}%c'                  \
     '%{$fg[yellow]%}$(git_prompt_info)' \
     '%{$reset_color%}'
-  ZSH_THEME_GIT_PROMPT_PREFIX=" . %{$fg[red]%}"
-  ZSH_THEME_GIT_PROMPT_SUFFIX=""
+  ZSH_THEME_GIT_PROMPT_PREFIX=". %{$fg[red]%}"
+  ZSH_THEME_GIT_PROMPT_SUFFIX=" "
 fi
 
 #
@@ -148,8 +160,6 @@ fi
 # Print battery visual indicator and vim-mode on right-hand side of prompt
 #
 
-# NOTE: without this, there's space after the RPROMPT
-ZLE_RPROMPT_INDENT=0
 VIM_NORMAL_MODE="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
 VIM_INSERT_MODE="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
 
