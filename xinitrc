@@ -54,5 +54,12 @@ xrandr -q                                           \
 # Start simple X hotkey daemon
 sxhkd &
 
+# Start dunst
+width=$(xq-primary-width)
+height=$(xq-primary-height)
+dunst_width=$(($width / 5))
+if [[ $dunst_width < 300 ]]; then dunst_width=300; fi
+dunst -geometry "${dunst_width}x5-50+$(($height / 2 - 50))"
+
 # Replace process with bspwm (window manager)
 exec bspwm
