@@ -126,8 +126,10 @@ ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 
 # NOTE: without this, there's space after the RPROMPT
 # NOTE: this can only be disabled within tmux
-if [[ -n "$TMUX" ]]; then
+if [[ "$TERM" == "screen-256olor" ]]; then
   ZLE_RPROMPT_INDENT=0
+else
+  ZLE_RPROMPT_INDENT=1
 fi
 
 #
