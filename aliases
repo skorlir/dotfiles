@@ -41,3 +41,7 @@ function xq-primary-offset {
 }
 alias xq-primary-width="xq-primary-dimensions | cut -dx -f1"
 alias xq-primary-height="xq-primary-dimensions | cut -dx -f2"
+
+function zg {
+   2>&1 _z $(git rev-parse --show-toplevel) $@
+}
