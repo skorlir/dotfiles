@@ -36,11 +36,6 @@ export path=(~/.local/bin ~/.local/zsh-scripts $path)
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# Fuck shit up
-if [ $DISPLAY ]; then
-	setxkbmap -option ctrl:nocaps
-fi
-
 # Custom configuration
 source ~/.zshrc.local
 

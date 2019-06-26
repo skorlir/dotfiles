@@ -39,6 +39,9 @@ fi
 # Here's where actual user-stuff happens
 #
 
+# Fuck shit up
+setxkbmap -option ctrl:nocaps
+
 # Rotate connected output(s)
 xrandr -q                                           \
   | grep "\bconnected\b"                            \
