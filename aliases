@@ -33,15 +33,8 @@ alias ll="ls -lh"
 alias lll="ls -lAh"
 alias gpa="git remote | xargs -IR git push R"
 
-alias xq-primary="xrandr --query | grep 'primary'"
-alias xq-primary-geometry="xq-primary | cut -d' ' -f4"
-alias xq-primary-dimensions="xq-primary-geometry | cut -d+ -f1"
-function xq-primary-offset {
-  printf '+%s\n' $(xq-primary-geometry | cut -d+ -f2-3)
-}
-alias xq-primary-width="xq-primary-dimensions | cut -dx -f1"
-alias xq-primary-height="xq-primary-dimensions | cut -dx -f2"
-
 function zg {
    2>&1 _z $(git rev-parse --show-toplevel) $@
 }
+
+source ~/.aliases.xq

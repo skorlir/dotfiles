@@ -1,0 +1,6 @@
+alias xq-primary="xrandr --query | grep 'primary'"
+alias xq-primary-geometry="xq-primary | cut -d' ' -f4"
+alias xq-primary-dimensions="xq-primary-geometry | cut -d+ -f1"
+alias xq-primary-width="xq-primary-dimensions | cut -dx -f1"
+alias xq-primary-height="xq-primary-dimensions | cut -dx -f2"
+alias xq-primary-offset="xq-primary-geometry | cut -d+ -f2-3 | printf '+%s\n'"
