@@ -4,7 +4,7 @@
 
 # lock + suspend
 super + l
-	slock & systemctl suspend
+	slock systemctl suspend -i
 
 # terminal emulator
 super + Return
