@@ -42,14 +42,14 @@ fi
 # Fuck shit up
 setxkbmap -option ctrl:nocaps
 
-# Rotate connected output(s)
-xrandr -q                                           \
-  | grep "\bconnected\b"                            \
-  | while read -r monitor
-  do echo $monitor                                  \
-    | cut -d' ' -f1                                 \
-    | xargs -I {} xrandr --output {} --rotate left
-  done
+# Rotate connected output(s) NOTE: this should be hostname-specific.
+# xrandr -q                                           \
+#   | grep "\bconnected\b"                            \
+#   | while read -r monitor
+#   do echo $monitor                                  \
+#     | cut -d' ' -f1                                 \
+#     | xargs -I {} xrandr --output {} --rotate left
+#   done
 
 # Set random background image
 ~/.feh-set-background
