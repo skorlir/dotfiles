@@ -21,7 +21,7 @@ alias clock="date +'%A %r'"
 volume () { amixer sset Master $1% }
 backlight () { sudo xbacklight $1 }
 
-suspend () { slock & ; sleep 0.1 && systemctl suspend }
+suspend () { slock systemctl suspend -i }
 hibernate () { systemctl hibernate }
 hybrid-sleep () { systemctl hybrid-sleep }
 
