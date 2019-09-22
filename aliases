@@ -25,9 +25,6 @@ suspend () { slock systemctl suspend -i }
 hibernate () { systemctl hibernate }
 hybrid-sleep () { systemctl hybrid-sleep }
 
-alias sxs="dzen2 -bg lightgreen -p -fg white -y $((2080/2)) -x $(((3120 - 1000/2)/2)) -tw 1000"
-alias fxs="dzen2 -bg red -p -fg white -y $((2080/2)) -x $(((3120 - 100/2)/2)) -tw 1000"
-
 alias l="ls -1"
 alias ll="ls -lh"
 alias lll="ls -lAh"
