@@ -35,3 +35,6 @@ function zg {
 }
 
 source ~/.aliases.xq
+if [[ -s ~/.aliases.$(hostname) ]]; then
+  source ~/.aliases.$(hostname)
+fi
