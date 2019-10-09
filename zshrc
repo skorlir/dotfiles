@@ -24,14 +24,19 @@ plugins=(git)
 
 # User configuration
 
+# NOTE: zsh $path array mirrors colon-delimited PATH with a nicer API
+
 # Default path, very POSIX
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
+
+# Add custom zsh scripts and binaries to path
+export path=($HOME/.local/bin $HOME/.local/zsh-scripts $path)
+
+# Set XDG_CONFIG_HOME correctly, mostly for dumb scripts with bad defaults
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Add custom zsh functions to path so we can autoload them
-export fpath=(~/.local/zsh-functions $fpath)
-
-# Add custom zsh scripts to path
-export path=(~/.local/bin ~/.local/zsh-scripts $path)
+export fpath=($HOME/.local/zsh-functions $fpath)
 
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -43,6 +48,3 @@ source ~/.zshrc.local
 if [ -e ~/.zshrc.sensitive ]; then
 	source ~/.zshrc.sensitive
 fi
-
-# FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
