@@ -37,7 +37,7 @@ index 574dbee..76bb3ea 100644
  #define ISCONTROLC0(c)		(BETWEEN(c, 0, 0x1f) || (c) == '\177')
  #define ISCONTROLC1(c)		(BETWEEN(c, 0x80, 0x9f))
  #define ISCONTROL(c)		(ISCONTROLC0(c) || ISCONTROLC1(c))
- #define ISDELIM(u)		(utf8strchr(worddelimiters, u) != NULL)
+ #define ISDELIM(u)		(u && wcschr(worddelimiters, u))
 
 +/* constants */
 +#define ISO14755CMD		"dmenu -w \"$WINDOWID\" -p codepoint: </dev/null"
