@@ -21,4 +21,5 @@
       button.click()
     })
   })
+  return true
 })()
