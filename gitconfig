@@ -2,7 +2,7 @@
 	email = skorlir@gmail.com
 	name = fluffywaffles
 [push]
-	default = simple
+	default = current
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
