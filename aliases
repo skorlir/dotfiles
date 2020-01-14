@@ -29,6 +29,7 @@ alias l="ls -1"
 alias ll="ls -lh"
 alias lll="ls -lAh"
 alias gpa="git remote | xargs -IR git push R"
+alias grm="git checkout master && git pull --rebase && git checkout - && git rebase master"
 
 function zg {
    2>&1 _z $(git rev-parse --show-toplevel) $@
