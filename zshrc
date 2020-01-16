@@ -48,3 +48,6 @@ source ~/.zshrc.local
 if [ -e ~/.zshrc.sensitive ]; then
 	source ~/.zshrc.sensitive
 fi
+
+# Install FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
