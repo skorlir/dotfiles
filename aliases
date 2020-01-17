@@ -51,3 +51,8 @@ source ~/.aliases.xq
 if [[ -s ~/.aliases.$(hostname) ]]; then
   source ~/.aliases.$(hostname)
 fi
+
+alias docker-bomb="                 \
+  docker rmi -f $(docker images -q) \
+  && docker rm $(docker ps -aq)     \
+"
