@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo lpadmin -i /opt/brother/Printers/mfcj825dw/cupswrapper/brother_mfcj825dw_printer_en.ppd -E -v usb://Brother/MFC-J825DW?serial=BROB2F170400 -D Brother printer -d brother
