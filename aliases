@@ -7,10 +7,6 @@ alias ta='tmux attach'
 alias clip='xclip -sel clip'
 #alias clip='pbcopy' # OS X
 
-#alias ramdisk-up="sudo mount -t tmpfs -o size=2048M tmpfs /media/$(whoami)/ramdisk && echo \"Ramdisk UP at /media/$(whoami)/ramdisk\" && echo \"Ramdisk df (Disk Free) output:\n`df /media/$(whoami)/ramdisk`\""
-#alias ramdisk-rm="sudo umount /media/$(whoami)/ramdisk && echo \"Ramdisk DOWN at /media/$(whoami)/ramdisk\""
-#alias ramdisk-down=ramdisk-rm
-
 alias t=tmux
 alias vim=nvim
 alias svim="sudo -EPS nvim"
@@ -44,7 +40,8 @@ alias grump="                        \
 "
 
 function zg {
-   2>&1 _z $(git rev-parse --show-toplevel) $@
+  2>&1 _z $(git rev-parse --show-toplevel) $@
+  return 0
 }
 
 source ~/.aliases.xq
@@ -52,7 +49,8 @@ if [[ -s ~/.aliases.$(hostname) ]]; then
   source ~/.aliases.$(hostname)
 fi
 
-alias docker-bomb="                 \
-  docker rmi -f $(docker images -q) \
-  && docker rm $(docker ps -aq)     \
-"
+function docker-bomb {
+  docker rmi -f $(docker images -q)
+  docker rm $(docker ps -aq)
+  return 0
+}
