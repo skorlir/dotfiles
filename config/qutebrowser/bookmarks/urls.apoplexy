@@ -6,7 +6,7 @@ https://docs.google.com/spreadsheets/d/1z7LJGRk-9GXnEFz3n3wsBKpwsSYJN9t9zkui2wzt
 https://userinyerface.com/ User Inyerface - A worst-practice UI experiment
 https://secure.bswift.com/default.aspx?abbrev=sequoia Login
 https://www.typescriptlang.org/docs/handbook/advanced-types.html Advanced Types · TypeScript
-https://github.com/microsoft/TypeScript/blob/master/lib/lib.d.ts
+https://github.com/microsoft/TypeScript/blob/master/lib/lib.d.ts 
 https://buildkite.com/better/monorepo/builds?branch=master Builds · monorepo
 https://trello.com/b/ld3LzjSj/engineering Engineering | Trello
 https://github.com/caarlos0/dotfiles/tree/master/script dotfiles/script at master · caarlos0/dotfiles
@@ -43,10 +43,10 @@ https://github.com/microsoft/TypeScript microsoft/TypeScript: TypeScript is a su
 https://na3.docusign.net/Signing/?ti=4a6782e1b2d24e84a1d5cae0b78b71db Review and sign document(s) | DocuSign
 https://docs.google.com/document/d/1A43DmJhCL-IN8PBMb63kLj9lSykOfhenRM5Ikr2LDO8/edit 2019-10-16 Brief: Design Proposal & Status - Google Docs
 https://trello.com/c/UvfkLjUJ/547-plaid-integration-kick-off-buh-bye-accountchek Plaid integration kick off (buh bye Accountchek) on Revenue Engineering | Trello
-https://github.com/edenhill/librdkafka
+https://github.com/edenhill/librdkafka 
 https://www.archlinux.org/packages/ Arch Linux - Package Search
 https://trello.com/c/iv1XeOtF/26000-kafka-event-bus Kafka Event Bus on Engineering | Trello
-https://buildkite.com/better/branch-deploy
+https://buildkite.com/better/branch-deploy 
 https://docs.google.com/document/d/1212O9jBASTSRmsctdfiICPqTMNK0fdgDsbi38dpC98E/edit 2019-10-00: Library and Service Co-design - Google Docs
 https://streaml.io/blog/bookkeeper-toab Scaling out Total Order Atomic Broadcast with Apache BookKeeper
 https://github.com/edenhill/librdkafka/blob/1.0.x/CONFIGURATION.md librdkafka/CONFIGURATION.md at 1.0.x · edenhill/librdkafka
@@ -61,11 +61,10 @@ http://intronetworks.cs.luc.edu/current/html/intro.html#layers 1   An Overvie
 https://signin.aws.amazon.com/switchrole?account=299544290090&roleName=super-developer Assume super developer
 https://github.com/kubernetes/kops kubernetes/kops: Kubernetes Operations (kops) - Production Grade K8s Installation, Upgrades, and Management
 https://github.com/kubernetes/kops/blob/master/docs/tutorial/upgrading-kubernetes.md kops/upgrading-kubernetes.md at master · kubernetes/kops
-https://docs.google.com/document/d/13D8ErRGoCKb6jNpnU25c-XzNkO5GPY9WJqZVY5zTsDc/edit?ts=5dc2ef11
+https://docs.google.com/document/d/13D8ErRGoCKb6jNpnU25c-XzNkO5GPY9WJqZVY5zTsDc/edit?ts=5dc2ef11 
 https://docs.google.com/spreadsheets/d/1d83YwQLzaVft4LxZt8oibPOZvVSdqPo-kPwnULXU3HY/edit?ts=5e150669#gid=0 Code Ownership - Google Sheets
 https://github.com/better/mortgage/blob/master/ONBOARDING.md mortgage/ONBOARDING.md at master · better/mortgage
 https://calendar.google.com/calendar/r/week Better.com - Calendar - Week of January 6, 2020
-https://bettermortgage.atlassian.net/jira/software/projects/CT/board/57 Core Tech Jira Board core-tech
 https://i2.kym-cdn.com/photos/images/original/000/909/991/48c.jpg 48c.jpg (400×301)
 https://en.wikipedia.org/wiki/Bufferbloat Bufferbloat - Wikipedia
 https://www.areaware.com/ Areaware
@@ -76,3 +75,11 @@ https://open.spotify.com/ Spotify – Home
 https://medium.com/@oprearocks/how-to-properly-override-the-entrypoint-using-docker-run-2e081e5feb9d How to properly override the ENTRYPOINT using docker run
 https://github.com/fluffywaffles/dotfiles fluffywaffles/dotfiles
 https://hub.docker.com/r/better/baseimage/ better/baseimage - Docker Hub
+https://hub.docker.com/r/better/dockerimages/ better/dockerimages - Docker Hub
+https://www.meetup.com/TypeScriptNYC/events/267814048/ tsc --version # 3.8b | Meetup
+https://keep.google.com/u/1/ Google Keep
+https://bettermortgage.atlassian.net/jira/software/projects/CT/boards/57 Agile Board - Jira
+https://pkgs.alpinelinux.org/packages Alpine Linux packages
+https://github.com/better/dockerimages better/dockerimages: build images
+https://docs.google.com/document/d/1JUQznCIRoFuzq2whAuMFxlBx-MGABNmrqSJw_QHnVfk/edit#heading=h.mcf6s042c2fc Core Tech Office Hours - Google Docs
+https://app.logdna.com/3453efcd81/logs/view?q=pod%3Abetter-events-smoke-test pod:better-events-smoke-test » LogDNA
