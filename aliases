@@ -50,8 +50,4 @@ if [[ -s ~/.aliases.$(hostname) ]]; then
   source ~/.aliases.$(hostname)
 fi
 
-function docker-bomb {
-  docker rmi -f $(docker images -q)
-  docker rm $(docker ps -aq)
-  return 0
-}
+alias docker-bomb='docker system prune --volumes -a'
