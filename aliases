@@ -38,6 +38,7 @@ alias grump="                        \
   && git rebase master               \
   && git push --force                \
 "
+alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
 
 function zg {
   2>&1 _z $(git rev-parse --show-toplevel) $@
