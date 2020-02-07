@@ -24,7 +24,6 @@ https://docs.pact.io/how_pact_works How Pact works - Pact
 https://docs.google.com/document/d/1W9qnlTDtafVQO0LVLQmwxgLCBMmJQq7UKzsCBuWzBq4/edit?ts=5d41af72 Dave <> Jordan 1:1 // Running Agenda - Google Docs
 https://uglygerry.com/ Ugly Gerry
 https://timber.io/ Timber.io | Log Better
-https://github.com/imsky/pull-review/blob/master/src/get-reviewers.js#L272 pull-review/get-reviewers.js at master · imsky/pull-review
 https://admin-staging.bettermg.com/sign-in Better
 https://github.com/better/mortgage/tree/jordan/feat/plaid better/mortgage at jordan/feat/plaid
 https://app.slack.com/client/T02G6LW8H/unreads Slack | Unread Messages | Better
@@ -83,3 +82,21 @@ https://pkgs.alpinelinux.org/packages Alpine Linux packages
 https://github.com/better/dockerimages better/dockerimages: build images
 https://docs.google.com/document/d/1JUQznCIRoFuzq2whAuMFxlBx-MGABNmrqSJw_QHnVfk/edit#heading=h.mcf6s042c2fc Core Tech Office Hours - Google Docs
 https://app.logdna.com/3453efcd81/logs/view?q=pod%3Abetter-events-smoke-test pod:better-events-smoke-test » LogDNA
+https://www.terraform.io/docs/plugins/provider.html Provider Plugins - Terraform by HashiCorp
+https://github.com/fluffywaffles/ fluffywaffles
+https://github.com/better/mortgage/blob/master/ci/buildkite/pipelines/selenium/selenium_pipeline_test.py mortgage/selenium_pipeline_test.py at master · better/mortgage
+https://www.iamag.co/the-art-of-moebius/ The Art of Moebius
+https://docs.docker.com/compose/compose-file/ Compose file version 3 reference | Docker Documentation
+https://docs.docker.com/engine/reference/builder/ | Docker Documentation
+https://app.datadoghq.com/monitors#/downtime Manage Downtime | Datadog
+https://flink.apache.org/ Apache Flink: Stateful Computations over Data Streams
+https://engineeringblog.yelp.com/2016/08/more-than-just-a-schema-store.html More Than Just a Schema Store
+https://www.whatsonweibo.com/ Home | What's on Weibo
+https://www.gnu.org/software/make/manual/make.html GNU make
+https://github.com/buildkite/emojis buildkite/emojis: Custom emoji supported by Buildkite which you can use in your build pipelines and terminal output.
+https://eev.ee/blog/2020/02/01/old-css-new-css/ Old CSS, new CSS / fuzzy notepad
+https://github.com/better/mortgage/pull/39049 Plaid follow-up: exhaustive error-handling by fluffywaffles · Pull Request #39049 · better/mortgage
+https://github.com/better/mortgage/pull/39048 Plaid follow-up: account filtering by fluffywaffles · Pull Request #39048 · better/mortgage
+https://bettermortgage.atlassian.net/issues/?filter=10142 [CT Event Bus, Mine, or Available] Issue navigator - Jira
+https://bettermortgage.atlassian.net/issues/?filter=10140&jql=project%20%3D%20CT%20AND%20(assignee%20%3D%20currentUser()%20OR%20assignee%20is%20EMPTY)%20AND%20status%20!%3D%20Done%20ORDER%20BY%20assignee%20ASC%2C%20status%20ASC [CT Mine and Unassigned] Issue navigator - Jira
+https://blog.developer.atlassian.com/force-with-lease/ -force considered harmful; understanding git's -force-with-lease - Atlassian Developer Blog
