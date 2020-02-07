@@ -24,22 +24,26 @@ hybrid-sleep () { systemctl hybrid-sleep }
 alias l="ls -1"
 alias ll="ls -lh"
 alias lll="ls -lAh"
-alias gpa="git remote | xargs -IR git push R"
-alias grm="                          \
-  git checkout master                \
-  && git pull --rebase origin master \
-  && git checkout -                  \
-  && git rebase master               \
-"
-alias grump="                        \
-  git checkout master                \
-  && git pull --rebase origin master \
-  && git checkout -                  \
-  && git rebase master               \
-  && git push --force                \
-"
-alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
+
 alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
+
+alias gpa="git remote | xargs -IR git push R"
+alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
+
+function grm () {
+  git checkout master
+  git pull --rebase origin master
+  git checkout -
+  git rebase master
+}
+
+function grump () {
+  git checkout master
+  git pull --rebase origin master
+  git checkout -
+  git rebase master
+  git push --force-with-lease
+}
 
 function zg {
   2>&1 _z $(git rev-parse --show-toplevel) $@
@@ -51,4 +55,8 @@ if [[ -s ~/.aliases.$(hostname) ]]; then
   source ~/.aliases.$(hostname)
 fi
 
-alias docker-bomb='docker system prune --volumes -a'
+function docker-bomb () {
+  docker system prune --volumes -a
+}
+
+alias dd='dd status=progress'
