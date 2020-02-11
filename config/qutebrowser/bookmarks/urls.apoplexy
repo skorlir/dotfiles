@@ -100,3 +100,8 @@ https://github.com/better/mortgage/pull/39048 Plaid follow-up: account filtering
 https://bettermortgage.atlassian.net/issues/?filter=10142 [CT Event Bus, Mine, or Available] Issue navigator - Jira
 https://bettermortgage.atlassian.net/issues/?filter=10140&jql=project%20%3D%20CT%20AND%20(assignee%20%3D%20currentUser()%20OR%20assignee%20is%20EMPTY)%20AND%20status%20!%3D%20Done%20ORDER%20BY%20assignee%20ASC%2C%20status%20ASC [CT Mine and Unassigned] Issue navigator - Jira
 https://blog.developer.atlassian.com/force-with-lease/ -force considered harmful; understanding git's -force-with-lease - Atlassian Developer Blog
+https://www.meetup.com/TypeScriptNYC/events/268558525/?rv=ea1_v2&_xtd=gatlbWFpbF9jbGlja9oAJDgyZmViZWQ4LWUwNzctNDM4ZS1hNGNiLWNjMjE5NGI1MTRlYg tsc workshop/playground/plugins.ts --watch --build | Meetup
+https://bettermortgage.atlassian.net/wiki/spaces/ENG/pages/330498126/Technical+career+ladder Technical career ladder - Engineering - Confluence
+https://bettermortgage.atlassian.net/wiki/spaces/CO/pages/366149763/VPC+Networking VPC Networking - Core Tech - Confluence
+https://bettermortgage.atlassian.net/secure/RapidBoard.jspa?rapidView=113 Core Tech Event Bus, Mine, or Available - Agile Board - Jira
+https://docs.google.com/document/d/13D8ErRGoCKb6jNpnU25c-XzNkO5GPY9WJqZVY5zTsDc/edit Ethan/Jordan 1:1 Agenda - Google Docs
