@@ -82,6 +82,7 @@ https://pkgs.alpinelinux.org/packages Alpine Linux packages
 https://github.com/better/dockerimages better/dockerimages: build images
 https://docs.google.com/document/d/1JUQznCIRoFuzq2whAuMFxlBx-MGABNmrqSJw_QHnVfk/edit#heading=h.mcf6s042c2fc Core Tech Office Hours - Google Docs
 https://app.logdna.com/3453efcd81/logs/view?q=pod%3Abetter-events-smoke-test pod:better-events-smoke-test » LogDNA
+https://console.aws.amazon.com/console/home?region=us-east-1# AWS Management Console
 https://www.terraform.io/docs/plugins/provider.html Provider Plugins - Terraform by HashiCorp
 https://github.com/fluffywaffles/ fluffywaffles
 https://github.com/better/mortgage/blob/master/ci/buildkite/pipelines/selenium/selenium_pipeline_test.py mortgage/selenium_pipeline_test.py at master · better/mortgage
@@ -105,3 +106,17 @@ https://bettermortgage.atlassian.net/wiki/spaces/ENG/pages/330498126/Technical+c
 https://bettermortgage.atlassian.net/wiki/spaces/CO/pages/366149763/VPC+Networking VPC Networking - Core Tech - Confluence
 https://bettermortgage.atlassian.net/secure/RapidBoard.jspa?rapidView=113 Core Tech Event Bus, Mine, or Available - Agile Board - Jira
 https://docs.google.com/document/d/13D8ErRGoCKb6jNpnU25c-XzNkO5GPY9WJqZVY5zTsDc/edit Ethan/Jordan 1:1 Agenda - Google Docs
+https://git-scm.com/docs/git-worktree Git - git-worktree Documentation
+https://github.com/golang-standards/project-layout golang-standards/project-layout: Standard Go Project Layout
+https://www.githubstatus.com/ www.githubstatus.com
+https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/#configmapenvsource-v1-core Kubernetes API Reference Docs
+https://talks.golang.org/2012/splash.article Go at Google: Language Design in the Service of Software Engineering
+http://google-engtools.blogspot.com/2011/06/build-in-cloud-accessing-source-code.html Build in the Cloud: Accessing Source Code | Google Engineering Tools
+https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html command center: Less is exponentially more
+https://github.com/zdharma/pm-perf-test zdharma/pm-perf-test: Performance test of some of Zsh plugin managers
+https://github.com/unixorn/awesome-zsh-plugins/blob/master/README.md awesome-zsh-plugins/README.md at master · unixorn/awesome-zsh-plugins
+https://github.com/zdharma/zinit#calling-compinit-without-turbo-mode zdharma/zinit: Flexible Zsh plugin manager with clean fpath, reports, completion management, Turbo, annexes, services, packages
+https://github.com/fsaintjacques/semver-tool fsaintjacques/semver-tool: semver bash implementation
+https://refspecs.linuxfoundation.org/LSB_5.0.0/LSB-Core-generic/LSB-Core-generic/command.html#TBL-CMDS Commands and Utilities
+https://testing-library.com/ Testing Library · Simple and complete testing utilities that encourage good testing practices
+https://github.com/better/buildkite better/buildkite: the service that manages our buildkite agent infrastructure
