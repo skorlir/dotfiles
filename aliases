@@ -27,9 +27,11 @@ alias lll="ls -lAh"
 
 alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
 
+unalias grm # TODO: migrate off omz; keep only the aliases that I use
+
+alias gwd="git diff --word-diff=color"
 alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
 
-unalias grm # TODO: migrate off omz; keep only the aliases that I use
 function grm () {
   git checkout master
   git pull --rebase origin master
