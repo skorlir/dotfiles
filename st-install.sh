@@ -2,11 +2,14 @@
 # -e: fail on any error
 # -x: output current command
 
-cower -ddt ~/software st-git
+mkdir -p ~/software
+cd ~/software
 
-cd ~/software/st-git
+yay -G st
+
+cd ~/software/st
 
 ln -s ~/.st-config.h config.h
 ln -s ~/.st-colors colors
 
-makepkg -fi
+makepkg --syncdeps --install
