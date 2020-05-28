@@ -27,8 +27,12 @@ if [[ $(id -u) -ne 0 ]]; then
 	exec sudo $0
 fi
 
-pkill wpa_supplicant
-pkill dhcpcd
+if [[ $(pkill wpa_supplicant) ]]; then
+	printf "killed running wpa_supplicant\n"
+fi
+if [[ $(pkill dhcpcd) ]]; then
+	printf "killed running dhcpcd\n"
+fi
 directory=$(dirname $0)
 conf_name=$(basename $0)
 
