@@ -40,14 +40,12 @@ function grm () {
 }
 
 function grump () {
-  git stash push -u --message "grumping it up"
   git checkout master
   git pull --rebase origin master
   git checkout -
   git rebase master
   git fetch --prune origin
   git push --force-with-lease
-  git stash pop
 }
 
 function zg {
