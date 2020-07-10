@@ -1,9 +1,0 @@
-Host fw
-  HostName fluffywaffles
-  Port 55555
-  User french
-
-Host pepperoni
-  HostName pepperoni
-  User jtt258
-  IdentityFile ~/.ssh/pepperoni_id_rsa
