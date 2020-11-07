@@ -1,0 +1,3 @@
+#!/bin/sh -e
+sudo yay -S brscan4 sane-airscan ipp-usb
+scanimage -L
