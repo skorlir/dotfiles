@@ -28,10 +28,10 @@ alias lll="ls -lAh"
 alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
 
 unalias grm # TODO: migrate off omz; keep only the aliases that I use
-unalias gf  # TODO: migrate off omz...
 
-function gf () {
-  git fetch $* 'refs/heads/*:refs/heads/*'
+function gtfo () { # get the fucking origin
+  remote=${1:-origin}
+  git fetch ${remote} "refs/heads/*:refs/remotes/${remote}/*"
 }
 
 alias gwd="git diff --word-diff=color"
