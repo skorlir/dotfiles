@@ -31,7 +31,7 @@ unalias grm # TODO: migrate off omz; keep only the aliases that I use
 
 function gtfo () {( # get the fucking origin
   remote=${1:-origin}
-  shift
+  if [ $# -gt 0 ]; then shift; fi
   git fetch ${remote} $* "refs/heads/*:refs/remotes/${remote}/*"
 )}
 
