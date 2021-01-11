@@ -7,23 +7,20 @@ alias ta='tmux attach'
 alias clip='xclip -sel clip'
 #alias clip='pbcopy' # OS X
 
-alias t=tmux
 alias vim=nvim
 alias svim="sudo -EPS nvim"
-alias ncgrep="grep --color=never"
 
 alias clock="date +'%A %r'"
 
 volume () { amixer sset Master $1% }
-backlight () { sudo xbacklight $1 }
 
 suspend () { slock systemctl suspend -i }
-hibernate () { systemctl hibernate }
-hybrid-sleep () { systemctl hybrid-sleep }
 
 alias l="ls -1"
 alias ll="ls -lh"
 alias lll="ls -lAh"
+
+alias dd='dd status=progress'
 
 alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
 
@@ -61,13 +58,11 @@ function zg {
   return 0
 }
 
-source ~/.aliases.xq
-if [[ -s ~/.aliases.$(hostname) ]]; then
-  source ~/.aliases.$(hostname)
-fi
-
 function docker-bomb () {
   docker system prune --volumes -a
 }
 
-alias dd='dd status=progress'
+source ~/.aliases.xq
+if [[ -s ~/.aliases.$(hostname) ]]; then
+  source ~/.aliases.$(hostname)
+fi
