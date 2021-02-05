@@ -34,23 +34,13 @@ function gtfo () {( # get the fucking origin
 
 alias gwd="git diff --word-diff=color"
 alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
+alias glom="git pull --rebase origin master"
 
-function grm () {(
-  set -e
-  git checkout master
+function glomp () {(
+  set -ex
   git pull --rebase origin master
-  git checkout -
-  git rebase master
-)}
-
-function grump () {(
-  set -e
-  git checkout master
-  git pull --rebase origin master
-  git checkout -
-  git rebase master
-  git fetch --prune origin
-  git push --force-with-lease
+  local branch=$(git rev-parse --abbrev-ref HEAD) # git-current-branch
+  git push --force-with-lease --set-upstream origin ${branch}
 )}
 
 function zg {
