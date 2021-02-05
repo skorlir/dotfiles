@@ -53,6 +53,6 @@ function docker-bomb () {
 }
 
 source ~/.aliases.xq
-if [[ -s ~/.aliases.$(hostname) ]]; then
-  source ~/.aliases.$(hostname)
+if [[ -s ~/.aliases.${HOST} ]]; then
+  source ~/.aliases.${HOST}
 fi

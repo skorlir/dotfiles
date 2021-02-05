@@ -49,5 +49,10 @@ if [ -e ~/.zshrc.sensitive ]; then
 	source ~/.zshrc.sensitive
 fi
 
+# Host-specific configuration
+if [ -e ${HOME}/.zshrc.${HOST} ]; then
+  source ${HOME}/.zshrc.${HOST}
+fi
+
 # Install FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
