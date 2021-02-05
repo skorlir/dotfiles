@@ -52,7 +52,6 @@ function docker-bomb () {
   docker system prune --volumes -a
 }
 
-source ~/.aliases.xq
 if [[ -s ~/.aliases.${HOST} ]]; then
   source ~/.aliases.${HOST}
 fi
