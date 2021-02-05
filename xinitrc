@@ -57,12 +57,5 @@ setxkbmap -option ctrl:nocaps
 # Start simple X hotkey daemon
 sxhkd &
 
-# Start dunst for notifications
-source ~/.aliases.xq
-width=$(xq-primary-width)
-dunst_width=$(($width / 5))
-if [[ $dunst_width < 300 ]]; then dunst_width=300; fi
-dunst -geometry "${dunst_width}x5+50+50" &
-
 # Replace process with bspwm (window manager)
 exec bspwm
