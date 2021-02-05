@@ -4,13 +4,16 @@
 # Connect to WiFi.
 ##
 # Requires
-#   wpa_passphrase
 #   wpa_supplicant
 #   dhcpcd
 #   sudo
 ##
 # Usage
 #   Install in `${HOME}/@`; i.e.: `${HOME}/@/connect`
+#
+#   Set the interface name in `@/ifname`
+#   A default of wlp2s0 is provided in `@/ifname.default`
+#     $ cp ifname.default ifname
 #
 #   Add a WiFi configuration using:
 #     $ wpa_passphrase {ssid} {passphrase} > ${HOME}/@/{name}.conf
@@ -27,15 +30,22 @@ if [[ $(id -u) -ne 0 ]]; then
 	exec sudo $0
 fi
 
-if [[ $(pkill wpa_supplicant) ]]; then
-	printf "killed running wpa_supplicant\n"
+if pkill wpa_supplicant; then
+	printf "killing wpa_supplicant...\t"
+	sleep 0.2
+	printf "OK\n"
 fi
-if [[ $(pkill dhcpcd) ]]; then
-	printf "killed running dhcpcd\n"
+
+if pkill dhcpcd; then
+	printf "killing dhcpcd...\t\t"
+	sleep 0.2
+	printf "OK\n"
 fi
+
 directory=$(dirname $0)
 conf_name=$(basename $0)
+ifname=$(cat ${directory}/ifname)
 
 set -x
-wpa_supplicant -Bi wlp2s0 -c ${directory}/${conf_name}.conf
-dhcpcd wlp2s0
+wpa_supplicant -Bi ${ifname} -c ${directory}/${conf_name}.conf
+dhcpcd ${ifname}
