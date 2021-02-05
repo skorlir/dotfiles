@@ -30,24 +30,19 @@ plugins=(git)
 export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
 
 # Add custom zsh scripts and binaries to path
-export path=($HOME/.local/bin $HOME/.local/zsh-scripts $path)
+export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
 
 # Set XDG_CONFIG_HOME correctly, mostly for dumb scripts with bad defaults
-export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="${HOME}/.config"
 
 # Add custom zsh functions to path so we can autoload them
-export fpath=($HOME/.local/zsh-functions $fpath)
+export fpath=(${HOME}/.local/zsh-functions ${fpath})
 
 # Load oh-my-zsh
-source $ZSH/oh-my-zsh.sh
+source ${ZSH}/oh-my-zsh.sh
 
 # Custom configuration
 source ~/.zshrc.local
-
-# Any information that shouldn't be tracked in git should be in a different file
-if [ -e ~/.zshrc.sensitive ]; then
-	source ~/.zshrc.sensitive
-fi
 
 # Host-specific configuration
 if [ -e ${HOME}/.zshrc.${HOST} ]; then
