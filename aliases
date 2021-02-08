@@ -1,20 +1,16 @@
 alias open=xdg-open
 
-alias pdf='mupdf'
+alias pdf=mupdf
 
-alias ta='tmux attach'
+alias ta="tmux attach"
 
-alias clip='xclip -sel clip'
-#alias clip='pbcopy' # OS X
+alias clip="xclip -sel clip"
 
 alias vim=nvim
 alias svim="sudo -EPS nvim"
 
+
 alias clock="date +'%A %r'"
-
-volume () { amixer sset Master $1% }
-
-suspend () { slock systemctl suspend -i }
 
 alias l="ls -1"
 alias ll="ls -lh"
@@ -24,17 +20,15 @@ alias dd='dd status=progress'
 
 alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
 
-unalias grm # TODO: migrate off omz; keep only the aliases that I use
+alias gwd="git diff --word-diff=color"
+alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
+alias glom="git pull --rebase origin master"
 
 function gtfo () {( # get the fucking origin
   remote=${1:-origin}
   if [ $# -gt 0 ]; then shift; fi
   git fetch ${remote} $* "refs/heads/*:refs/remotes/${remote}/*"
 )}
-
-alias gwd="git diff --word-diff=color"
-alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
-alias glom="git pull --rebase origin master"
 
 function glomp () {(
   set -ex
@@ -43,13 +37,11 @@ function glomp () {(
   git push --force-with-lease --set-upstream origin ${branch}
 )}
 
+function volume () { amixer sset Master $1% }
+function suspend () { slock systemctl suspend -i }
+
 function zg {
   2>&1 _z $(git rev-parse --show-toplevel) $@
-  return 0
-}
-
-function docker-bomb () {
-  docker system prune --volumes -a
 }
 
 if [[ -s ~/.aliases.${HOST} ]]; then
