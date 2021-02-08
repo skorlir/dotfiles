@@ -9,6 +9,7 @@ alias clip="xclip -sel clip"
 alias vim=nvim
 alias svim="sudo -EPS nvim"
 
+alias red="redshift"
 
 alias clock="date +'%A %r'"
 
