@@ -1,24 +1,4 @@
 #
-# Path!
-# Djikstra! ... would be confused to know he is referenced here.
-#
-
-# Make sure local bins come _before_ cargo bins, without repeating it
-# $array[(i)...] is index-of; if not found, returns $((${#array} + 1))
-local_bin_index=$path[(i)$HOME/.local/bin]
-if [[ !($local_bin_index -ge ${#path}) ]]; then
-  export path=(
-    # Everything up to and including $HOME/.local/bin
-    $path[0,$local_bin_index]
-    $HOME/.cargo/bin
-    # Everything after $HOME/.local/bin, to the end (-1)
-    $path[$local_bin_index+1,-1]
-  )
-else
-  export path=($HOME/.cargo/bin $path)
-fi
-
-#
 # Keyboard
 # QWERT
 #
@@ -60,6 +40,9 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Load z
 source $HOME/.local/zsh-functions/z/z.sh
+
+# Add cargo binaries to path (e.g. watchexec)
+export path=($HOME/.cargo/bin $path)
 
 #
 # ZLE (zsh line editor)
