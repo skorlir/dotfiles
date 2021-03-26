@@ -14,9 +14,6 @@ bindkey '^w' backward-kill-word
 # Give me extended glob support
 setopt extendedglob
 
-# Don't share history between zsh sessions
-setopt no_sharehistory
-
 # ibus
 # export GTK_IM_MODULE=ibus  # youbus
 # export XMODIFIERS=@im=ibus # webus
