@@ -18,10 +18,7 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-# User configuration
-
 # NOTE: zsh $path array mirrors colon-delimited PATH with a nicer API
-
 # Default path, very POSIX
 export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
 

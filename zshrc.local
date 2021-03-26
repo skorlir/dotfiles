@@ -29,7 +29,7 @@ export KEYTIMEOUT=1
 # Vi keybindings
 bindkey -v
 
-# Keybindings that should be preserved even after entering and exiting vi normal mode.
+# Preserve keybindings even after entering and exiting vi normal mode.
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
@@ -52,7 +52,7 @@ setopt no_sharehistory
 # nvim pls
 export EDITOR="nvim"
 
-# Aliaseses
+# Aliases
 source ~/.aliases
 
 # Better FZF (using ag for filtering)
@@ -77,7 +77,7 @@ else
 fi
 
 #
-# Da PrompT
+# Prompt
 #
 
 # Only do all this if we're in a decent terminal...
@@ -102,7 +102,7 @@ else
 fi
 
 #
-# RPrompT (the one on the right!)
+# RPrompt (the one on the right!)
 # Print battery visual indicator and vim-mode on right-hand side of prompt
 #
 
