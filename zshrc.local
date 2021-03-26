@@ -14,11 +14,6 @@ bindkey '^w' backward-kill-word
 # Give me extended glob support
 setopt extendedglob
 
-# ibus
-# export GTK_IM_MODULE=ibus  # youbus
-# export XMODIFIERS=@im=ibus # webus
-# export QT_IM_MODULE=ibus   # bus is life
-
 #
 # Aliases, functions, source-able software (plugins), ...?
 #
