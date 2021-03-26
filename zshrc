@@ -39,8 +39,5 @@ if [ -e ${HOME}/.zshrc.${HOST} ]; then
   source ${HOME}/.zshrc.${HOST}
 fi
 
-# Install FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Add custom zsh scripts and binaries to path
 export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})

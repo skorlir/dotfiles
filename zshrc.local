@@ -35,6 +35,9 @@ export EDITOR="nvim"
 # Aliases
 source ~/.aliases
 
+# Load FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Better FZF (using ag for filtering)
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
