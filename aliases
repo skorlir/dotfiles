@@ -1,50 +1,85 @@
-alias open=xdg-open
-
-alias pdf=mupdf
-
-alias ta="tmux attach"
-
-alias clip="xclip -sel clip"
-
-alias vim=nvim
-alias svim="sudo -EPS nvim"
-
+# vim: ft=zsh
+alias ta='tmux attach'
+alias pdf='mupdf'
+alias open='xdg-open'
+alias clip='xclip -sel clip'
+#alias clip='pbcopy' # OS X
 alias red="redshift"
-
+alias vim='nvim'
+alias svim='sudo -EP nvim'
 alias clock="date +'%A %r'"
+alias super='sudo -EPS' # upgrades current shell + env to superuser
 
-alias l="ls -1"
-alias ll="ls -lh"
-alias lll="ls -lAh"
+volume () { amixer sset Master $1% }
+suspend () { slock systemctl suspend -i }
+
+alias l='ls -1'
+alias ll='ls -lh'
+alias lll='ls -lAh'
 
 alias dd='dd status=progress'
 
 alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
 
-alias gwd="git diff --word-diff=color"
-alias gbc="git rev-parse --abbrev-ref HEAD" # git-branch-current
-alias glom="git pull --rebase origin master"
+#
+# zg
+#
+# z within the current git repository
+#
+function zg () {(
+  set -e
+  local root=$(git rev-parse --show-toplevel)
+  [[ -n ${root} ]] && 2>&1 _z ${root} $@ || return 1
+)}
 
-function gtfo () {( # get the fucking origin
+#
+# the long git section
+#
+
+function git-fetch-the-fucking-origin () {(
+  #
+  # git-fetch-the-fucking-origin [<remote>] [<additional refs>]
+  #
   remote=${1:-origin}
   if [ $# -gt 0 ]; then shift; fi
   git fetch ${remote} $* "refs/heads/*:refs/remotes/${remote}/*"
 )}
 
-function glomp () {(
+function git-branch-current () {(
+  #
+  # returns the currently checked-out branch name at HEAD
+  #
+  set -ex
+  git rev-parse --abbrev-ref HEAD
+)}
+
+function git-pull-rebase-master-then-force-with-lease () {(
+  #
+  # rebase remote master into current branch and then force-push
+  # also: a hug-tackle from behind, usually surprising.
+  #
   set -ex
   git pull --rebase origin master
-  local branch=$(git rev-parse --abbrev-ref HEAD) # git-current-branch
+  local branch=$(git rev-parse --abbrev-ref HEAD) # git-branch-current
   git push --force-with-lease --set-upstream origin ${branch}
 )}
 
-function volume () { amixer sset Master $1% }
-function suspend () { slock systemctl suspend -i }
+#
+# shell aliases for custom git functions
+#
+alias gbc='git-branch-current'
+alias gtfo='git-fetch-the-fucking-origin'
+alias glomp='git-pull-rebase-master-then-force-with-lease'
 
-function zg {
-  2>&1 _z $(git rev-parse --show-toplevel) $@
-}
+#
+# shell aliases for common git commands
+#
+alias gwd='git diff --word-diff=color'
+alias glom='git pull --rebase origin master'
 
+#
+# HOST-specific aliases [if any]
+#
 if [[ -s ~/.aliases.${HOST} ]]; then
   source ~/.aliases.${HOST}
 fi
