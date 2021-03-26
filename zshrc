@@ -4,10 +4,6 @@ export ZSH=~/.oh-my-zsh
 # Stop fucking with my window titles, OMZ!
 DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
 # Dot dot dot when completion is slow
 COMPLETION_WAITING_DOTS="true"
 
