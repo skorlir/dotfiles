@@ -3,9 +3,6 @@
 # QWERT
 #
 
-# Go it, fastly!
-export KEYTIMEOUT=1
-
 # Vi keybindings
 bindkey -v
 
