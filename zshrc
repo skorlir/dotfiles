@@ -22,9 +22,6 @@ plugins=(git)
 # Default path, very POSIX
 export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
 
-# Add custom zsh scripts and binaries to path
-export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
-
 # Set XDG_CONFIG_HOME correctly, mostly for dumb scripts with bad defaults
 export XDG_CONFIG_HOME="${HOME}/.config"
 
@@ -44,3 +41,6 @@ fi
 
 # Install FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Add custom zsh scripts and binaries to path
+export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
