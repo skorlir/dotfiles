@@ -41,7 +41,7 @@ export path=($HOME/.cargo/bin $path)
 #
 
 # NOTE: which characters should be removed during completion? (not pipe)
-ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
+export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 
 # NOTE: without this, there's space after the RPROMPT
 # NOTE: this can only be disabled within tmux
