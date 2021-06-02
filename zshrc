@@ -16,6 +16,7 @@ export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 # source ${ZSH}/oh-my-zsh.sh
 
 # wide-ranging default settings
+# man://zshoptions(1)
 # ∙ changing directories
 setopt auto_cd            # [-J] if a command is a directory, `cd {dir}`
 setopt auto_pushd         # [-N] automatically pushd when cd
@@ -60,10 +61,12 @@ setopt append_create      # >> creates new files despite no_clobber
 # ∙ zsh line editor (zle)
 setopt no_beep            # don't fucking beep
 
-# keep 50k lines of history
+# zsh environment variable parameters
+# man://zshparam(1) (section: PARAMETERS USED BY THE SHELL)
+export DIRSTACKSIZE=100      # keep 100 entries in the directory stack
 export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=50000        # keep 50k lines of internal session history
-export SAVEHIST=${HISTSIZE}  # lines of global ${HISTFILE}
+export SAVEHIST=${HISTSIZE}  # and the same in the shared ${HISTFILE}
 
 # settings notes
 #
