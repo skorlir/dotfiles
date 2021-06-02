@@ -1,12 +1,75 @@
 # Set XDG_CONFIG_HOME correctly, mostly for dumb scripts with bad defaults
 export XDG_CONFIG_HOME="${HOME}/.config"
 
-# Make ls colors consistent
-export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=0"
-
-
 # Load oh-my-zsh
 # source ${ZSH}/oh-my-zsh.sh
+
+# make ls colors consistent
+#
+# color is a semicolon-delimited list of attributes for each match
+#   man://console_codes(4)
+#
+# attributes for effects and 16 colors
+#   fx 0{0=none 1=bold 2=half-bright 4=underscore 5=blink 7=reverse 8=concealed}
+#   fg 3{0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white}
+#   bg 4{0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white}
+#
+# additional codes 38 (fg) and 48 (bg) suppport 8- and 24-bit colors:
+#   {38,48};5;x      -  8-bit  (256) color, x is in 0..255
+#   {38,48};2;r;g;b  -  24-bit (rgb) color, each of r, g, b is in 0..255
+#
+# sharkdp/vivid provides a great reference for file codes (like pi=fifo):
+#   https://github.com/sharkdp/vivid/blob/master/config/filetypes.yml
+# otherwise i think you just have to reverse-engineer them from dircolors.
+#
+# TODO(jordan): use more than 16 colors when available
+#
+export ls_colors=(
+  "rs=0"        # reset
+  "di=01;34"    # directory
+  "ln=01;36"    # link
+  "mh=00"       # multihardlink
+  "pi=40;33"    # fifo
+  "so=01;35"    # socket
+  "do=01;35"    # door [?]
+  "bd=40;33;01" # block device driver
+  "cd=40;33;01" # character device driver
+  "or=40;31;01" # orphan (broken symlink, non-stat-able file)
+  "mi=00"       # missing [?]
+  "su=37;41"    # setuid (file with u+s)
+  "sg=30;43"    # setgid (file with g+s)
+  "ca=30;41"    # capability (file with capability [?])
+  "tw=30;42"    # sticky other-writable (file with +t and o+w)
+  "ow=34;42"    # other-writable non-sticky (file with o+w)
+  "st=37;44"    # sticky (+t) and not other-writable
+  "ex=01;32"    # executable (file with +x)
+  # begin file extension based color patterns
+  "*.tar=01;31"
+  "*.tgz=01;31"
+  "*.arc=01;31"
+  "*.arj=01;31"
+  "*.taz=01;31"
+  "*.lha=01;31"
+  "*.lz4=01;31"
+  "*.lzh=01;31"
+  "*.lzma=01;31"
+  "*.tlz=01;31"
+  "*.txz=01;31"
+  "*.tzo=01;31"
+  "*.t7z=01;31"
+  "*.zip=01;31"
+  "*.z=01;31"
+  "*.dz=01;31"
+  "*.gz=01;31"
+  "*.lrz=01;31"
+  "*.lz=0"
+)
+export LS_COLORS=${(j.:.)ls_colors}
+
+# tell colorizable commands to print colors during interactive sessions
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias tree='tree -C'
 
 # wide-ranging default settings
 # man://zshoptions(1)
