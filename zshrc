@@ -65,8 +65,10 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias tree='tree -C'
 
+#
 # wide-ranging default settings
 # man://zshoptions(1)
+#
 # ∙ changing directories
 setopt auto_cd            # [-J] if a command is a directory, `cd {dir}`
 setopt auto_pushd         # [-N] automatically pushd when cd
@@ -111,9 +113,24 @@ setopt pipe_fail          # sets $? to non-zero if any pipe element fails
 setopt append_create      # >> creates new files despite no_clobber
 # ∙ zsh line editor (zle)
 setopt no_beep            # don't fucking beep
+# options notes
+#
+# [1] no_list_ambiguous
+#     this means that, with node and node-gyp installed,
+#       $ no<tab>
+#     will expand to:
+#       $ node
+#     BUT instead of stopping, a menu shows for further disambiguation:
+#       $ node
+#         node node-gyp
+#     with the default setting, list_ambiguous, <tab> must be pressed
+#     again to continue completing and to eventually get node-gyp.
+#
 
+#
 # misc. zsh environment variable parameters
 # man://zshparam(1) (section: PARAMETERS USED BY THE SHELL)
+#
 export DIRSTACKSIZE=100      # keep 100 entries in the directory stack
 export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=50000        # keep 50k lines of internal session history
@@ -132,21 +149,6 @@ export ZLE_RPROMPT_INDENT=$((!${+TMUX}))
 export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
 # Add custom zsh functions to path so we can autoload them
 export fpath=(${HOME}/.local/zsh-functions ${fpath})
-
-
-# settings notes
-#
-# [1] no_list_ambiguous
-#     this means that, with node and node-gyp installed,
-#       $ no<tab>
-#     will expand to:
-#       $ node
-#     BUT instead of stopping, a menu shows for further disambiguation:
-#       $ node
-#         node node-gyp
-#     with the default setting, list_ambiguous, <tab> must be pressed
-#     again to continue completing and to eventually get node-gyp.
-#
 
 # zshcontrib functions
 # colors: exports $fg, $bg color arrays
