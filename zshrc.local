@@ -40,6 +40,8 @@ export path=($HOME/.cargo/bin $path)
 # NOTE: which characters should be removed during completion? (not pipe)
 export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 #
 # Prompt
 #
