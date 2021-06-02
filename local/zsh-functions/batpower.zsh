@@ -2,6 +2,8 @@
 # Battery functions (used below)
 #
 
+declare -g batpower_enabled=1
+
 function batpower-setup {
   setopt +o nomatch # NOTE: suppress 'no match' error message
   local detected_batteries=$(ls -d /sys/class/power_supply/BAT* 2>/dev/null)
