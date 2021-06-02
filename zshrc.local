@@ -33,13 +33,6 @@ source $HOME/.local/zsh-functions/z/z.sh
 # Add cargo binaries to path (e.g. watchexec)
 export path=($HOME/.cargo/bin $path)
 
-#
-# ZLE (zsh line editor)
-#
-
-# NOTE: which characters should be removed during completion? (not pipe)
-export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
-
 export XDG_CONFIG_HOME="${HOME}/.config"
 
 #

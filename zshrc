@@ -153,6 +153,8 @@ export timefmt=(
 export TIMEFMT=${(j: :)${timefmt}}
 # zle: shells sometimes need a margin on the RPROMPT, but not in tmux
 export ZLE_RPROMPT_INDENT=$((!${+TMUX}))
+# zle: which characters should be removed during completion? (not pipe)
+export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 
 # special zsh array parameters
 # default path, very POSIX
