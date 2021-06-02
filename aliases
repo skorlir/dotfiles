@@ -10,12 +10,9 @@ alias svim='sudo -EP nvim'
 alias clock="date +'%A %r'"
 alias super='sudo -EPS' # upgrades current shell + env to superuser
 
-volume () { amixer sset Master $1% }
-suspend () { slock systemctl suspend -i }
-
 alias l='ls -1'
 alias ll='ls -lh'
-alias lll='ls -lAh'
+alias la='ls -lAh' # use -A not -a so that . and .. are omitted
 
 alias dd='dd status=progress'
 
@@ -37,21 +34,21 @@ function zg () {
 # the long git section
 #
 
-function git-fetch-the-fucking-origin () {(
-  #
-  # git-fetch-the-fucking-origin [<remote>] [<additional refs>]
-  #
-  remote=${1:-origin}
-  if [ $# -gt 0 ]; then shift; fi
-  git fetch ${remote} $* "refs/heads/*:refs/remotes/${remote}/*"
-)}
-
 function git-branch-current () {(
   #
   # returns the currently checked-out branch name at HEAD
   #
   set -ex
   git rev-parse --abbrev-ref HEAD
+)}
+
+function git-push-set-upstream-branch-current () {(
+  #
+  # pushes the current branch to origin, setting upsteam to branch name
+  #
+  set -ex
+  local branch=$(git rev-parse --abbrev-ref HEAD) # git-branch-current
+  git push origin --set-upstream ${branch}
 )}
 
 function git-pull-rebase-master-then-force-with-lease () {(
@@ -62,21 +59,38 @@ function git-pull-rebase-master-then-force-with-lease () {(
   set -ex
   git pull --rebase origin master
   local branch=$(git rev-parse --abbrev-ref HEAD) # git-branch-current
-  git push --force-with-lease --set-upstream origin ${branch}
+  git push --force-with-lease ${branch}
 )}
 
 #
 # shell aliases for custom git functions
 #
 alias gbc='git-branch-current'
-alias gtfo='git-fetch-the-fucking-origin'
+alias gpu='git-push-set-upstream-branch-current'
 alias glomp='git-pull-rebase-master-then-force-with-lease'
 
 #
 # shell aliases for common git commands
 #
+alias g='git'
+alias ga='git add --patch'
+alias gb='git branch'
+alias gc='git commit --verbose'
+alias gd='git diff'
+alias gf='git fetch'
+alias gl='git pull'
+alias gm='git merge --ff-only'
+alias gp='git push'
+alias gr='git rebase'
+alias gc!='git commit --verbose --amend'
+alias gp!='git push --force'
+alias gfa='git fetch --all'
+alias gsh='git show'
+alias gst='git status'
 alias gwd='git diff --word-diff=color'
+alias glog='git log --oneline --decorate --graph'
 alias glom='git pull --rebase origin master'
+alias gloga='git log --oneline --decorate --graph --all'
 
 #
 # HOST-specific aliases [if any]
