@@ -65,16 +65,15 @@ fi
 # Print battery visual indicator and vim-mode on right-hand side of prompt
 #
 
-VIM_NORMAL_MODE="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
-VIM_INSERT_MODE="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
-
 # Load batpower (for battery strength indicators in RPROMPT)
 source $HOME/.local/zsh-functions/batpower.zsh
 
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
-  printf -v RPROMPT '%s%s$EPS1'                                         \
-    "${${KEYMAP/vicmd/$VIM_NORMAL_MODE}/(main|viins)/$VIM_INSERT_MODE}" \
+  local normal="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
+  local insert="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
+  printf -v RPROMPT '%s%s$EPS1'                           \
+    "${${KEYMAP/vicmd/${normal}}/(main|viins)/${insert}}" \
     "${batpower_enabled:+ }$(batpower-visual-battery)"
 }
 
