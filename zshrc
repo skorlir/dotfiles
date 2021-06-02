@@ -210,6 +210,13 @@ bindkey -M menuselect '^o' accept-and-infer-next-history
 # TODO(jordan): recreate COMPLETION_WAITING_DOTS functionality
 # ~/.oh-my-zsh/lib/completion.zsh:61
 
+# Add custom zsh scripts and binaries to path
+export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
+
+# perform compinit as late as possible, as it may override other settings
+autoload -U compinit && compinit
+autoload -U bashcompinit && bashcompinit # also load bash completions
+
 # Custom configuration
 source ~/.zshrc.local
 
@@ -217,10 +224,3 @@ source ~/.zshrc.local
 if [ -e ${HOME}/.zshrc.${HOST} ]; then
   source ${HOME}/.zshrc.${HOST}
 fi
-
-# Add custom zsh scripts and binaries to path
-export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
-
-# perform compinit as late as possible, as it may override other settings
-autoload -U compinit && compinit
-autoload -U bashcompinit && bashcompinit # also load bash completions
