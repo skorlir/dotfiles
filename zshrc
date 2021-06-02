@@ -151,6 +151,7 @@ export timefmt=(
   "max RSS %Mkb"    # max resident set size in kilobytes
 )
 export TIMEFMT=${(j: :)${timefmt}}
+# zle: shells sometimes need a margin on the RPROMPT, but not in tmux
 export ZLE_RPROMPT_INDENT=$((!${+TMUX}))
 
 # special zsh array parameters
