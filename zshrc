@@ -1,9 +1,6 @@
 # Set XDG_CONFIG_HOME correctly, mostly for dumb scripts with bad defaults
 export XDG_CONFIG_HOME="${HOME}/.config"
 
-# Load oh-my-zsh
-# source ${ZSH}/oh-my-zsh.sh
-
 # make ls colors consistent
 #
 # color is a semicolon-delimited list of attributes for each match
