@@ -43,21 +43,17 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 if [[ $TERM != "linux" ]]; then
   # Shorten the prompt
   # Stolen (!) from the "norm" zsh theme in OMZ
-  printf -v PROMPT "%s %s %s%s"         \
+  printf -v PROMPT "%s %s %s%s "        \
     '%{$fg[yellow]%}▌ƒ▐'                \
     '%{$fg[green]%}%c'                  \
-    '%{$fg[yellow]%}$(git_prompt_info)' \
+    '%{$fg[yellow]%}${vcs_info_msg_0_}' \
     '%{$reset_color%}'
-  ZSH_THEME_GIT_PROMPT_PREFIX="∙ %{$fg[red]%}"
-  ZSH_THEME_GIT_PROMPT_SUFFIX=" "
 else
-  printf -v PROMPT "%s %s %s%s"         \
+  printf -v PROMPT "%s %s %s%s "        \
     '%{$fg[yellow]%}f'                  \
     '%{$fg[green]%}%c'                  \
-    '%{$fg[yellow]%}$(git_prompt_info)' \
+    '%{$fg[yellow]%}${vcs_prompt_info}' \
     '%{$reset_color%}'
-  ZSH_THEME_GIT_PROMPT_PREFIX=". %{$fg[red]%}"
-  ZSH_THEME_GIT_PROMPT_SUFFIX=" "
 fi
 
 #
@@ -72,7 +68,8 @@ source $HOME/.local/zsh-functions/batpower.zsh
 function update-rprompt {
   local normal="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
   local insert="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
-  printf -v RPROMPT '%s%s$EPS1'                           \
+  printf -v RPROMPT '%s%s%s$EPS1'                         \
+    "${vcs_info_msg_1_}"                                  \
     "${${KEYMAP/vicmd/${normal}}/(main|viins)/${insert}}" \
     "${batpower_enabled:+ }$(batpower-visual-battery)"
 }

@@ -217,6 +217,18 @@ export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
 autoload -U compinit && compinit
 autoload -U bashcompinit && bashcompinit # also load bash completions
 
+autoload -U vcs_info
+# :vcs_info:{vcs}:{user-context}:{repo-root}
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' stagedstr   "[%{$fg[cyan]%}staged%{${reset_color}%}] "
+zstyle ':vcs_info:git:*' unstagedstr '*'
+zstyle ':vcs_info:git:*' formats "∙ %{$fg[red]%}%b%u%{${reset_color}%}" "%c"
+zstyle ':vcs_info:git:*' check-for-changes true
+precmd() {
+  setopt no_warn_nested_var
+  vcs_info
+}
+
 # Custom configuration
 source ~/.zshrc.local
 
