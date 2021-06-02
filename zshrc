@@ -4,13 +4,25 @@
 #   man://console_codes(4)
 #
 # attributes for effects and 16 colors
-#   fx 0{0=none 1=bold 2=half-bright 4=underscore 5=blink 7=reverse 8=concealed}
+#   fx 0{0=none  1=bold     2=dim     3=italic    4=underscore
+#        5=blink 6=<unused> 7=reverse 8=concealed 9=strikeout}
 #   fg 3{0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white}
 #   bg 4{0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white}
+#
+# NOTE that italic, concealed, and strikeout are not documented in
+# console_codes and are not supported by all terminal emulators.
 #
 # additional codes 38 (fg) and 48 (bg) suppport 8- and 24-bit colors:
 #   {38,48};5;x      -  8-bit  (256) color, x is in 0..255
 #   {38,48};2;r;g;b  -  24-bit (rgb) color, each of r, g, b is in 0..255
+#
+# a complete escape is written:
+#   [<parameters>m
+# for example, a bright pastel-y purple:
+#   [38;2;255;150;255m
+#
+# in zsh, codes can be tested using literal escape sequences in %{...%}:
+#   print -P '%{[38;2;255;150;255m%}hello, purple!%{[0m%}'
 #
 # sharkdp/vivid provides a great reference for file codes (like pi=fifo):
 #   https://github.com/sharkdp/vivid/blob/master/config/filetypes.yml
