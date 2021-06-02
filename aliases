@@ -73,7 +73,7 @@ alias glomp='git-pull-rebase-master-then-force-with-lease'
 # shell aliases for common git commands
 #
 alias g='git'
-alias ga='git add --patch'
+alias ga='git add'
 alias gb='git branch'
 alias gc='git commit --verbose'
 alias gd='git diff'
