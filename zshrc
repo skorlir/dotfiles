@@ -139,9 +139,18 @@ unset NULLCMD                # error on redirection with no command
 export REPORTMEMORY=100      # print timing stats for commands using >100k
 export REPORTTIME=1          # print timing stats for commands taking >1s
 export SAVEHIST=${HISTSIZE}  # and the same in the shared ${HISTFILE}
-# timing stats in hh:mm:ss.ttt (%*{U,S}) with max resident set size (%M)
-export TIMEFMT="%J %*U user %*S system %P cpu %*E total ¦ max RSS %Mk"
-# shells sometimes need a margin on the RPROMPT, but not in tmux
+# give all timings in ms (%m{U,S,E}) with max resident set size (%M)
+export timefmt=(
+  "%J"              # job name
+  "%mU user"        # time spent in user-mode in milliseconds
+  "%mS system"      # time spent in kernel-mode in milliseconds
+  "%mE (%*E) total" # total time in milliseconds and hh:mm:ss.ttt
+  "─"               # spacer between time and resource usage
+  "max cpu %P"      # max cpu percentage
+  "─"               # spacer between cpu and memory
+  "max RSS %Mkb"    # max resident set size in kilobytes
+)
+export TIMEFMT=${(j: :)${timefmt}}
 export ZLE_RPROMPT_INDENT=$((!${+TMUX}))
 
 # special zsh array parameters
