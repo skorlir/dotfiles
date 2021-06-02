@@ -1,12 +1,5 @@
-# NOTE: zsh $path array mirrors colon-delimited PATH with a nicer API
-# Default path, very POSIX
-export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
-
 # Set XDG_CONFIG_HOME correctly, mostly for dumb scripts with bad defaults
 export XDG_CONFIG_HOME="${HOME}/.config"
-
-# Add custom zsh functions to path so we can autoload them
-export fpath=(${HOME}/.local/zsh-functions ${fpath})
 
 # Make ls colors consistent
 export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=0"
@@ -61,12 +54,27 @@ setopt append_create      # >> creates new files despite no_clobber
 # ∙ zsh line editor (zle)
 setopt no_beep            # don't fucking beep
 
-# zsh environment variable parameters
+# misc. zsh environment variable parameters
 # man://zshparam(1) (section: PARAMETERS USED BY THE SHELL)
 export DIRSTACKSIZE=100      # keep 100 entries in the directory stack
 export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=50000        # keep 50k lines of internal session history
+export LISTMAX=0             # ask before listing if it won't fit onscreen
+unset NULLCMD                # error on redirection with no command
+export REPORTMEMORY=100      # print timing stats for commands using >100k
+export REPORTTIME=1          # print timing stats for commands taking >1s
 export SAVEHIST=${HISTSIZE}  # and the same in the shared ${HISTFILE}
+# timing stats in hh:mm:ss.ttt (%*{U,S}) with max resident set size (%M)
+export TIMEFMT="%J %*U user %*S system %P cpu %*E total ¦ max RSS %Mk"
+# shells sometimes need a margin on the RPROMPT, but not in tmux
+export ZLE_RPROMPT_INDENT=$((!${+TMUX}))
+
+# special zsh array parameters
+# default path, very POSIX
+export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
+# Add custom zsh functions to path so we can autoload them
+export fpath=(${HOME}/.local/zsh-functions ${fpath})
+
 
 # settings notes
 #
