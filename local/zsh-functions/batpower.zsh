@@ -10,7 +10,7 @@ typeset -g batpower_enabled
 typeset -gH capacity_file status_file
 
 function batpower-setup {
-  local detected_batteries=$(find /sys/class/power_supply/ -name BAT\*)
+  local detected_batteries=$(2>/dev/null find /sys/class/power_supply/ -name BAT\*)
   local batteries=(${BATPOWER_BATTERIES:-${detected_batteries}})
   # If there are no batteries, fail.
   if [[ ${#batteries} -eq 0 ]]; then
