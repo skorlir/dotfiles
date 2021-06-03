@@ -147,8 +147,6 @@ export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=50000        # keep 50k lines of internal session history
 export LISTMAX=0             # ask before listing if it won't fit onscreen
 unset NULLCMD                # error on redirection with no command
-export REPORTMEMORY=100      # print timing stats for commands using >100k
-export REPORTTIME=1          # print timing stats for commands taking >1s
 export SAVEHIST=${HISTSIZE}  # and the same in the shared ${HISTFILE}
 # give all timings in ms (%m{U,S,E}) with max resident set size (%M)
 export timefmt=(
@@ -290,7 +288,12 @@ precmd() {
 # Custom configuration
 source ~/.zshrc.local
 
-# Host-specific configuration
+# Report slow / high-memory commands AFTER running global and local setup
+export REPORTMEMORY=100      # print timing stats for commands using >100k
+export REPORTTIME=1          # print timing stats for commands taking >1s
+
+# Host-specific configuration and overrides
+# This should come last so it can override e.g. REPORTTIME
 if [ -e ${HOME}/.zshrc.${HOST} ]; then
   source ${HOME}/.zshrc.${HOST}
 fi
