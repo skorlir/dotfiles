@@ -6,7 +6,7 @@
 # - combined with TMOUT + SIGALRM, can be almost realtime
 #
 
-typeset -gi 2 batpower_enabled=1
+typeset -g batpower_enabled
 typeset -gH capacity_file status_file
 
 function batpower-setup {
@@ -24,12 +24,12 @@ function batpower-setup {
       "batteries=($batteries)"
   fi
   printf 'batpower: battery set: %s.\n' ${selected_battery}
-  typeset -g batpower_enabled=0
+  typeset -g batpower_enabled=1
   typeset -g capacity_file="$selected_battery/capacity"
   typeset -g status_file="$selected_battery/status"
 }
 
-function batpower-enabled { return ${batpower_enabled} }
+function batpower-enabled { [[ -n ${batpower_enabled} ]] }
 function batpower-charge  { batpower-enabled && cat ${capacity_file} }
 function batpower-status  { batpower-enabled && cat ${status_file}   }
 
