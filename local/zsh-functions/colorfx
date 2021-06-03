@@ -71,7 +71,7 @@ typeset -g reset_color="[${codes[reset]}m"
 #
 # foreground and background color codes
 #
-# simple mappings are used for 6 color and 8-bit color
+# simple mappings are used for 16 color and 8-bit color
 #   ${fg[name]}   → 16 colors     (e.g. ${fg[black]})
 #   ${fg[number]} → 8-bit colors  (e.g. ${bg[213]})
 # and functions are used for generating true colors
