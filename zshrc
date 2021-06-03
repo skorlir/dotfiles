@@ -174,15 +174,6 @@ export path=(/usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
 # Add custom zsh functions to path so we can autoload them
 export fpath=(${HOME}/.local/zsh-functions ${fpath})
 
-# zshcontrib functions
-# colors: exports $fg, $bg color arrays
-autoload -U colors && colors
-# exports $FX, $FG, $BG
-source ${HOME}/.local/zsh-functions/spectrum.zsh
-# TODO(jordan): let's combine termcap, terminfo, spectrum, colors into our
-# own omnibus terminal effects package, because it's getting annoying to
-# keep this all straight.
-
 # zshmodules
 # loads the zstyle, zformat, zparseopts, zregexparse builtins
 zmodload zsh/zutil
@@ -216,6 +207,18 @@ export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
 # perform compinit as late as possible, as it may override other settings
 autoload -U compinit && compinit
 autoload -U bashcompinit && bashcompinit # also load bash completions
+
+#
+# autoload custom text effects and colors functions. colorfx provides:
+#   $fg, $bg, $fx, $codes, fg-rgb(), bg-rgb()
+#   fgls-16 fgls-256   list foreground examples for 16 and 256 color
+#   bgls-16 bgls-256   list background examples for 16 and 256 color
+#   cls-24bit-square   enumerate rgb colors in a (127x, 50y)ish square
+#
+# basically a mashup of the best ideas from zshcontrib colors and
+# spectrum.zsh.
+#
+autoload -U colorfx && colorfx
 
 # use vcs_info for git prompt information, ships with zsh in zshcontrib
 autoload -U vcs_info

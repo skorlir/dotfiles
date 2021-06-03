@@ -53,15 +53,15 @@ function batpower-visual-battery {
   local    charge=$(batpower-charge)
   local -h status=$(batpower-status) # -h bc. status is a special variable
   if   [[ ${charge} -ge 85 ]]; then
-    color="${FG[118]}" # green
+    color="${fg[118]}" # green
   elif [[ ${charge} -ge 50 ]]; then
-    color="${FG[154]}" # yellow-green
+    color="${fg[154]}" # yellow-green
   elif [[ ${charge} -ge 35 ]]; then
-    color="${FG[011]}" # yellow
+    color="${fg[011]}" # yellow
   elif [[ ${charge} -ge 20 ]]; then
-    color="${FG[208]}" # orange
+    color="${fg[208]}" # orange
   elif [[ ${charge} -ge 00 ]]; then
-    color="${FG[196]}" # red
+    color="${fg[196]}" # red
   fi
   printf "%s%s %s%s"                 \
     "%{${color}%}"                   \

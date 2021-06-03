@@ -1,0 +1,223 @@
+#!/bin/zsh
+
+# colorfx provides shorthand for terminal colors and effects
+#
+# inspiration taken from:
+#   man://console_codes(4)
+#   /usr/share/zsh/functions/Misc/colors
+#   https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/spectrum.zsh
+#
+typeset -AHg codes fx fg bg
+typeset -fHg fg-rgb bg-rgb
+typeset -fg cls-fg16 cls-bg16 cls-fg256 cls-bg256 cls-24bit-rect
+
+#
+# ECMA-48 SGR (select graphic rendition) attributes for 16 color effects
+#   fx 0{0=none  1=bold     2=dim     3=italic    4=underscore
+#        5=blink 6=<unused> 7=reverse 8=concealed 9=strikeout}
+#   fg 3{0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white}
+#   bg 4{0=black 1=red 2=green 3=yellow 4=blue 5=magenta 6=cyan 7=white}
+#
+typeset -AHg codes=(
+  00 reset
+  01 bold
+  02 dim       22 normal
+  03 italic    23 no-italic
+  04 underline 24 no-underline
+  05 blink     25 no-blink
+  07 reverse   27 no-reverse
+  08 conceal   28 no-conceal
+  09 strikeout 29 no-strikeout
+  # 1x are font-selection codes; not useful
+  30 black   40 bg-black
+  31 red     41 bg-red
+  32 green   42 bg-green
+  33 yellow  43 bg-yellow
+  34 blue    44 bg-blue
+  35 magenta 45 bg-magenta
+  36 cyan    46 bg-cyan
+  37 white   47 bg-white
+  # 38, 48: escape sequences for 256 color and 24 bit color
+  39 default 49 bg-default # it's not clear that these are useful, but meh
+  # the remaining codes are mostly unused and not worth enumerating here.
+  #
+  # check the console_codes manpage if they are of interest to you.
+  #
+)
+
+# map in reverse from name → code as well
+local key
+for key in ${(k)codes}; do
+  codes[${codes[${key}]}]=${key}
+done
+
+#
+# effects codes, easily summarized in one simple mapping
+#
+typeset -AHg fx=(
+  reset     "[${codes[reset]}m"
+  bold      "[${codes[bold]}m"
+  dim       "[${codes[dim]}m"        normal       "[${codes[normal]}m"
+  italic    "[${codes[italic]}m"     no-italic    "[${codes[no-italic]}m"
+  underline "[${codes[underline]}m"  no-underline "[${codes[no-underline]}m"
+  blink     "[${codes[blink]}m"      no-blink     "[${codes[no-blink]}m"
+  reverse   "[${codes[reverse]}m"    no-reverse   "[${codes[no-reverse]}m"
+  strikeout "[${codes[strikeout]}m"  no-strikeout "[${codes[no-strikeout]}m"
+)
+
+# export special ${reset_color} variable common in existing scripts
+typeset -g reset_color="[${codes[reset]}m"
+
+#
+# foreground and background color codes
+#
+# simple mappings are used for 6 color and 8-bit color
+#   ${fg[name]}   → 16 colors     (e.g. ${fg[black]})
+#   ${fg[number]} → 8-bit colors  (e.g. ${bg[213]})
+# and functions are used for generating true colors
+#   {fg,bg}_rgb() → 24-bit colors (e.g. $(fg-rgb 200 200 150))
+#
+
+#
+# foreground color maps and functions
+#
+
+# map base 16 foregound colors
+typeset -AHg fg=(
+  black   "[${codes[black]}m"
+  red     "[${codes[red]}m"
+  green   "[${codes[green]}m"
+  yellow  "[${codes[yellow]}m"
+  blue    "[${codes[blue]}m"
+  magenta "[${codes[magenta]}m"
+  cyan    "[${codes[cyan]}m"
+  white   "[${codes[white]}m"
+)
+
+# map 256 foreground colors
+typeset -i color_index
+for color_index in {000..255}; do
+  fg[${color_index}]="[38;5;${color_index}m"
+done
+
+# compute foreground 24 bit colors
+function fg-rgb() {
+  if [[ $# -ne 3 ]]; then
+    >&2 print "ERROR fg-rgb wrong number arguments ($#) for RGB"
+    exit 1
+  fi
+  local r=$1 g=$2 b=$3
+  print "[38;2;${r};${g};${b}m"
+}
+
+#
+# background color maps and functions
+#
+
+# map base 16 background colors
+typeset -AHg bg=(
+  black   "[${codes[bg-black]}m"
+  red     "[${codes[bg-red]}m"
+  green   "[${codes[bg-green]}m"
+  yellow  "[${codes[bg-yellow]}m"
+  blue    "[${codes[bg-blue]}m"
+  magenta "[${codes[bg-magenta]}m"
+  cyan    "[${codes[bg-cyan]}m"
+  white   "[${codes[bg-white]}m"
+)
+
+# map 256 background colors
+typeset -i color_index
+for color_index in {000..255}; do
+  bg[${color_index}]="[48;5;${color_index}m"
+done
+
+# compute background 24 bit colors
+function bg-rgb() {
+  if [[ ! $# -eq 3 ]]; then
+    >&2 print "ERROR bg-rgb wrong number arguments for RGB"
+    exit 1
+  fi
+  local r=$1 g=$2 b=$3
+  print "[48;2;${r};${g};${b}m"
+}
+
+typeset -H pangram="the quick brown fox jumped over the lazy dog"
+
+function cls-fg16() {
+  local color_name
+  for color_name in ${(k)fg[(I)[a-z]*]}; do
+    print -P '${color_name}\t%{${fg[${color_name}]}${1:-${pangram}}${fx[reset]}%}'
+  done
+}
+
+function cls-fg256() {
+  local color_index
+  for color_index in ${(nik)fg[(I)[0-9]*]}; do
+    print -P '${(l:3::0:)color_index}\t%{${fg[${color_index}]}%}${1:-${pangram}}%{${fx[reset]}%}'
+  done
+}
+
+function cls-bg16() {
+  local color_name
+  for color_name in ${(k)bg[(I)[a-z]*]}; do
+    print -P '${color_name}\t%{${bg[${color_name}]}${1:-${pangram}}${fx[reset]}%}'
+  done
+}
+
+function cls-bg256() {
+  local color_index
+  for color_index in ${(nik)bg[(I)[0-9]*]}; do
+    print -P '${(l:3::0:)color_index}\t%{${bg[${color_index}]}%}${1:-${pangram}}%{${fx[reset]}%}'
+  done
+}
+
+function cls-24bit-rect() {
+  local ystep=${1:-5}
+  local xstep=${2:-2}
+  local x y r g b
+  function red-xy() { print $((255 - ${1} - (${2} / 2))) }
+  function grn-xy() { print $((${1} - (${2} / 2))) }
+  function blu-xy() { print $((8 / 5 * (${2} - 32))) }
+  function pad-rgb() { print "${(l:3::0:)1} ${(l:3::0:)2} ${(l:3::0:)3}" }
+  function header-footer() {
+    local y=$1
+    local x r g b arrow
+    if   [[ ${y} -eq 000 ]]; then arrow='↓'
+    elif [[ ${y} -eq 255 ]]; then arrow='↑'
+    else
+      >&2 print "invalid header-footer y value: ${y}"
+      return 1
+    fi
+    print -n '            ' # space
+    for x in {000..255..28}; do
+      r=$(red-xy ${x} ${y}); g=$(grn-xy ${x} ${y}); b=$(blu-xy ${x} ${y})
+      if [[ ${r} -lt 0 ]]; then r=0; fi
+      if [[ ${g} -lt 0 ]]; then g=0; fi
+      if [[ ${b} -lt 0 ]]; then b=0; fi
+      local color=$(fg-rgb ${r} ${g} ${b})
+      print -nP "%{${color}%}${arrow} $(pad-rgb ${r} ${g} ${b}) "
+    done
+    print
+  }
+
+  if [[ $# -eq 0 ]]; then header-footer 0; fi
+  for y in {000..255..${ystep}}; do
+    local new_row=yes
+    for x in {000..255..${xstep}}; do
+      r=$(red-xy ${x} ${y}); g=$(grn-xy ${x} ${y}); b=$(blu-xy ${x} ${y})
+      if [[ ${r} -lt 0 ]]; then r=0; fi
+      if [[ ${g} -lt 0 ]]; then g=0; fi
+      if [[ ${b} -lt 0 ]]; then b=0; fi
+      local color=$(fg-rgb ${r} ${g} ${b})
+      if [[ -n ${new_row} && $# -eq 0 ]]; then
+        print -nP "%{${color}%}$(pad-rgb ${r} ${g} ${b}) "
+        unset new_row
+      fi
+      print -nP '%{${color}%}▓'
+    done
+    if [[ $# -eq 0 ]]; then print -n " $(pad-rgb ${r} ${g} ${b})"; fi
+    print
+  done
+  if [[ $# -eq 0 ]]; then header-footer 255; fi
+}

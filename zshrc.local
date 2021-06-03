@@ -74,8 +74,8 @@ vcs_rprompt_formats+=(
 
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
-  local normal="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
-  local insert="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
+  local normal="%{$fx[bold]$fg[blue]%}[nrm]%{$reset_color%}"
+  local insert="%{$fx[bold]$fg[grey]%}[ins]%{$reset_color%}"
   printf -v RPROMPT '%s%s%s${EPS1}'                     \
     ${(j::)vcs_rprompt_formats}                         \
     ${${KEYMAP/vicmd/${normal}}/(main|viins)/${insert}} \
