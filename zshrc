@@ -266,7 +266,12 @@ function parse-vcs-info() {
   fi
   local git_root=$(git rev-parse --show-toplevel)
   local check_untracked
-  zstyle -g check_untracked ":vcs_info:git:*:${git_root}}" check-untracked
+  { # compute check_untracked from default and repo styles
+    local default repo
+    zstyle -g default ":vcs_info:git:*:*"           check-untracked
+    zstyle -g repo    ":vcs_info:git:*:${git_root}" check-untracked
+    check_untracked=${repo[1]:-${default[1]}} # there's only 1 result
+  }
   if [[ ${check_untracked} == true ]]; then
     vcs[untracked_files]=$(git ls-files --exclude-standard --others)
   fi
