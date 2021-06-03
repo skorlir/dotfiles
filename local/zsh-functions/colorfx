@@ -186,6 +186,7 @@ function cls-24bit-rect() {
   #   12 spaces
   #
   local left_padding='            ' # 12 spaces, per the above
+  # only print legend when no arguments are given
   if [[ ${#} -eq 0 ]]; then
     local legend_enabled=true
   fi
