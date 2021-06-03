@@ -234,6 +234,7 @@ zstyle ':vcs_info:git:*' stagedstr   1 # %c=1 if staged changes found
 zstyle ':vcs_info:git:*' unstagedstr 1 # %u=1 if unstaged changes found
 zstyle ':vcs_info:git:*' formats '%b' '%c' '%u' # branch, staged, unstaged
 zstyle ':vcs_info:git:*' check-for-changes true # yes, compute %c and %u
+zstyle ':vcs_info:git:*:*' check-untracked true
 
 #
 # parse-vcs-info()
@@ -263,7 +264,12 @@ function parse-vcs-info() {
   if [[ -z ${vcs[branch]} ]]; then
     return 0
   fi
-  vcs[untracked_files]=$(git ls-files --exclude-standard --others)
+  local git_root=$(git rev-parse --show-toplevel)
+  local check_untracked
+  zstyle -g check_untracked ":vcs_info:git:*:${git_root}}" check-untracked
+  if [[ ${check_untracked} == true ]]; then
+    vcs[untracked_files]=$(git ls-files --exclude-standard --others)
+  fi
   vcs[untracked]=${vcs[untracked_files]:+1}
   vcs[dirty]=${vcs[dirty]:=${vcs[unstaged]}}
   vcs[dirty]=${vcs[dirty]:=${vcs[untracked]}}
