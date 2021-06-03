@@ -264,7 +264,7 @@ function parse-vcs-info() {
   if [[ -z ${vcs[branch]} ]]; then
     return 0
   fi
-  vcs[untracked_files]=$(git ls-files --others 2>/dev/null)
+  vcs[untracked_files]=$(git ls-files --exclude-standard --others)
   vcs[untracked]=${vcs[untracked_files]:+1}
   vcs[dirty]=${vcs[dirty]:=${vcs[unstaged]}}
   vcs[dirty]=${vcs[dirty]:=${vcs[untracked]}}
