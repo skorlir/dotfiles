@@ -7,9 +7,10 @@
 #
 
 typeset -g batpower_enabled
-typeset -gH capacity_file status_file
+typeset -gH capacity_file status_file did_setup
 
 function batpower-setup {
+  typeset -gH did_setup=1
   local detected_batteries=$(2>/dev/null find /sys/class/power_supply/ -name BAT\*)
   local batteries=(${BATPOWER_BATTERIES:-${detected_batteries}})
   # If there are no batteries, fail.
@@ -25,8 +26,36 @@ function batpower-setup {
   fi
   printf 'batpower: battery set: %s.\n' ${selected_battery}
   typeset -g batpower_enabled=1
-  typeset -g capacity_file="$selected_battery/capacity"
-  typeset -g status_file="$selected_battery/status"
+  typeset -gH capacity_file="$selected_battery/capacity"
+  typeset -gH status_file="$selected_battery/status"
+}
+
+function batpower-linux {
+  if [[ -z ${did_setup} ]]; then
+    batpower-setup
+  fi
+}
+
+function batpower-darwin {
+  typeset -g batpower_enabled=1
+  local capacities=$(
+    ioreg -rn AppleSmartBattery                                     \
+      | sed -e 's/^[[:space:]]*//'                                  \
+      | grep -E '"(Max|Current)Capacity"|"(Is|Fully)Charg(ing|ed)"' \
+      | cut -d' ' -f1,3
+  )
+  local max_capacity current_capacity
+  local -h status=Discharging
+  local key value; for key value in ${=capacities}; do
+    if   [[ ${key} =~         Max* ]]; then max_capacity=${value}
+    elif [[ ${key} =~     Current* ]]; then current_capacity=${value}
+    elif [[ ${key} =~   IsCharging && ${value} == Yes ]]; then status=Charging
+    elif [[ ${key} =~ FullyCharged && ${value} == Yes ]]; then status=Full
+    fi
+  done
+  local charge=$((100 * ${current_capacity} / ${max_capacity}))
+  typeset -g batpower_charge=${charge}
+  typeset -g batpower_status=${status}
 }
 
 function batpower-enabled { [[ -n ${batpower_enabled} ]] }
@@ -50,8 +79,8 @@ function batpower-fmt-status {
 function batpower-visual-battery {
   batpower-enabled || return 0
   local color
-  local    charge=$(batpower-charge)
-  local -h status=$(batpower-status) # -h bc. status is a special variable
+  local    charge=${${batpower_charge}:-$(batpower-charge)}
+  local -h status=${${batpower_status}:-$(batpower-status)}
   if   [[ ${charge} -ge 85 ]]; then
     color="${fg[118]}" # green
   elif [[ ${charge} -ge 50 ]]; then
@@ -63,10 +92,8 @@ function batpower-visual-battery {
   elif [[ ${charge} -ge 00 ]]; then
     color="${fg[196]}" # red
   fi
-  printf "%s%s %s%s"                 \
-    "%{${color}%}"                   \
-    $(batpower-fmt-charge ${charge}) \
-    $(batpower-fmt-status ${status}) \
-    "%{${reset_color}%}"
+  printf "%%{${color}%%}%s %s%%{${fx[reset]}%%}" \
+    $(batpower-fmt-charge ${charge})             \
+    $(batpower-fmt-status ${status})
 }
 

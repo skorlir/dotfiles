@@ -74,13 +74,17 @@ vcs_rprompt_formats+=(
 )
 
 # Draw at start of each line print, and when keymap changes
+uname=$(uname -s)
 function update-rprompt {
+  local match mbegin mend
+  batpower-${uname:l}
   local normal="%{$fx[bold]$fg[blue]%}[nrm]%{$reset_color%}"
   local insert="%{$fx[bold]$fg[white]%}[ins]%{$reset_color%}"
   printf -v RPROMPT '%s%s%s${EPS1}'                     \
     ${(j::)vcs_rprompt_formats}                         \
     ${${KEYMAP/vicmd/${normal}}/(main|viins)/${insert}} \
-    ${batpower_enabled:+ }$(batpower-visual-battery)
+    "${batpower_enabled:+ }$(batpower-visual-battery)"
+    # ^ wrap in quotes to preserve spaces in the output
 }
 
 # Widget functions (for when zsh redraws the prompt)
@@ -93,6 +97,5 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# Set up batpower and rprompt!
-batpower-setup >/dev/null
+# set up rprompt on load
 update-rprompt
