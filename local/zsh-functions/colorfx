@@ -176,6 +176,20 @@ function cls-24bit-rect() {
   local ystep=${1:-5}
   local xstep=${2:-2}
   local x y r g b
+  #
+  # space between left edge of screen and color rect
+  #
+  #   3*3=9 spaces for RRRGGGBBB
+  #   2 spaces between RRR GGG BBB
+  #   1 space between RRR GGG BBB and color rect
+  #   ----
+  #   12 spaces
+  #
+  local left_padding='            ' # 12 spaces, per the above
+  if [[ ${#} -eq 0 ]]; then
+    local legend_enabled=true
+  fi
+
   function red-xy() { print $((255 - ${1} - (${2} / 2))) }
   function grn-xy() { print $((${1} - (${2} / 2))) }
   function blu-xy() { print $((8 / 5 * (${2} - 32))) }
@@ -189,7 +203,7 @@ function cls-24bit-rect() {
       >&2 print "invalid header-footer y value: ${y}"
       return 1
     fi
-    print -n '            ' # space
+    print -n ${left_padding}
     for x in {000..255..28}; do
       r=$(red-xy ${x} ${y}); g=$(grn-xy ${x} ${y}); b=$(blu-xy ${x} ${y})
       if [[ ${r} -lt 0 ]]; then r=0; fi
@@ -201,23 +215,32 @@ function cls-24bit-rect() {
     print
   }
 
-  if [[ $# -eq 0 ]]; then header-footer 0; fi
+  # print top legend if enabled
+  if [[ -n ${legend_enabled} ]]; then header-footer 0; fi
+  # print color rectangle
   for y in {000..255..${ystep}}; do
-    local new_row=yes
     for x in {000..255..${xstep}}; do
       r=$(red-xy ${x} ${y}); g=$(grn-xy ${x} ${y}); b=$(blu-xy ${x} ${y})
       if [[ ${r} -lt 0 ]]; then r=0; fi
       if [[ ${g} -lt 0 ]]; then g=0; fi
       if [[ ${b} -lt 0 ]]; then b=0; fi
       local color=$(fg-rgb ${r} ${g} ${b})
-      if [[ -n ${new_row} && $# -eq 0 ]]; then
-        print -nP "%{${color}%}$(pad-rgb ${r} ${g} ${b}) "
-        unset new_row
+      # print left legend when enabled at the start of a new row
+      if [[ -n ${legend_enabled} && ${x} -eq 0 ]]; then
+        print -nP "%{${color}%}$(pad-rgb ${r} ${g} ${b})"
+        print -n ' ' # space after left legend
       fi
-      print -nP '%{${color}%}█'
+      print -nP "%{${color}%}█"
     done
-    if [[ $# -eq 0 ]]; then print -n " $(pad-rgb ${r} ${g} ${b})"; fi
-    print
+    # at the end of every row...
+    # ...print right legend when enabled
+    if [[ -n ${legend_enabled} ]]; then
+      print -n ' ' # space before right legend
+      print -nP "%{${color}%}$(pad-rgb ${r} ${g} ${b})"
+    fi
+    # ...and always print a newline
+    printf '\n'
   done
-  if [[ $# -eq 0 ]]; then header-footer 255; fi
+  # print bottom legend if enabled
+  if [[ -n ${legend_enabled} ]]; then header-footer 255; fi
 }
