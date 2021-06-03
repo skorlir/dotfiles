@@ -39,21 +39,23 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 # Prompt
 #
 
+vcs_prompt_formats+=(
+  '%{${fg[yellow]}%}'
+  '${vcs[branch]:+ ∙ }'
+  '%{${fg[red]}%}${vcs[branch]}${vcs[dirty]:+*}'
+)
+
 # Only do all this if we're in a decent terminal...
 if [[ $TERM != "linux" ]]; then
-  # Shorten the prompt
-  # Stolen (!) from the "norm" zsh theme in OMZ
-  printf -v PROMPT "%s %s %s%s "        \
-    '%{$fg[yellow]%}▌ƒ▐'                \
-    '%{$fg[green]%}%c'                  \
-    '%{$fg[yellow]%}${vcs_info_msg_0_}' \
-    '%{$reset_color%}'
+  printf -v PROMPT '%s %s%s%%{${reset_color}%%} ' \
+    '%{$fg[yellow]%}▌ƒ▐'                          \
+    '%{$fg[green]%}%c'                            \
+    ${(j::)vcs_prompt_formats}
 else
-  printf -v PROMPT "%s %s %s%s "        \
-    '%{$fg[yellow]%}f'                  \
-    '%{$fg[green]%}%c'                  \
-    '%{$fg[yellow]%}${vcs_prompt_info}' \
-    '%{$reset_color%}'
+  printf -v PROMPT '%s %s%s%%{${reset_color}%%} ' \
+    '%{$fg[yellow]%}f'                            \
+    '%{$fg[green]%}%c'                            \
+    ${(j::)vcs_prompt_formats}
 fi
 
 #
@@ -64,14 +66,20 @@ fi
 # Load batpower (for battery strength indicators in RPROMPT)
 source $HOME/.local/zsh-functions/batpower.zsh
 
+vcs_rprompt_formats+=(
+  '${vcs[staged]:+[}'
+  '%{${fg[blue]}%}${vcs[staged]:+staged}%{${reset_color}%}'
+  '${vcs[staged]:+]}'
+)
+
 # Draw at start of each line print, and when keymap changes
 function update-rprompt {
   local normal="%{$FX[bold]$fg[blue]%}[nrm]%{$reset_color%}"
   local insert="%{$FX[bold]$fg[grey]%}[ins]%{$reset_color%}"
-  printf -v RPROMPT '%s%s%s$EPS1'                         \
-    "${vcs_info_msg_1_}"                                  \
-    "${${KEYMAP/vicmd/${normal}}/(main|viins)/${insert}}" \
-    "${batpower_enabled:+ }$(batpower-visual-battery)"
+  printf -v RPROMPT '%s%s%s${EPS1}'                     \
+    ${(j::)vcs_rprompt_formats}                         \
+    ${${KEYMAP/vicmd/${normal}}/(main|viins)/${insert}} \
+    ${batpower_enabled:+ }$(batpower-visual-battery)
 }
 
 # Widget functions (for when zsh redraws the prompt)

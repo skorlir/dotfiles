@@ -217,16 +217,61 @@ export path=(${HOME}/.local/bin ${HOME}/.local/zsh-scripts ${path})
 autoload -U compinit && compinit
 autoload -U bashcompinit && bashcompinit # also load bash completions
 
+# use vcs_info for git prompt information, ships with zsh in zshcontrib
 autoload -U vcs_info
-# :vcs_info:{vcs}:{user-context}:{repo-root}
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git:*' stagedstr   "[%{$fg[cyan]%}staged%{${reset_color}%}] "
-zstyle ':vcs_info:git:*' unstagedstr '*'
-zstyle ':vcs_info:git:*' formats "∙ %{$fg[red]%}%b%u%{${reset_color}%}" "%c"
-zstyle ':vcs_info:git:*' check-for-changes true
+#
+# vcs_info is configured with styles of the format:
+#   :vcs_info:{vcs}:{user-context}:{repo-root}
+#
+# generally speaking, {user-context} is rarely used.
+# {repo-root} can be used to set custom styles for specific repos.
+#
+zstyle ':vcs_info:*' enable git    # only enable git repos, not bzr, etc.
+zstyle ':vcs_info:*' max-exports 3 # export 3 ${vcs_info_msg_N_} variables
+zstyle ':vcs_info:git:*' stagedstr   1 # %c=1 if staged changes found
+zstyle ':vcs_info:git:*' unstagedstr 1 # %u=1 if unstaged changes found
+zstyle ':vcs_info:git:*' formats '%b' '%c' '%u' # branch, staged, unstaged
+zstyle ':vcs_info:git:*' check-for-changes true # yes, compute %c and %u
+
+#
+# parse-vcs-info()
+#
+# parse ${vcs_info_msg_N_} variables into an associative array, vcs
+#   [branch]            branch name
+#   [untracked_files]   list of untracked files (NOTE: may be slow?)
+#   [dirty]             1 if unstaged or untracked changes
+#   [staged]            1 if staged changes
+#   [unstaged]          1 if unstaged changes
+#   [untracked]         1 if there are untracked files
+#
+# OPTIMIZE? setting for disabling detection of untracked files?
+# hard to say without further testing if `git ls-files --other` is slow.
+#
+typeset -Ag vcs=([branch]='')
+function parse-vcs-info() {
+  typeset -Ag vcs=(
+    [branch]=${vcs_info_msg_0_}
+    [untracked_files]=''
+    [dirty]=''
+    [staged]=${vcs_info_msg_1_}
+    [unstaged]=${vcs_info_msg_2_}
+    [untracked]=''
+  )
+  # don't continue parsing info if we can already tell we're not in a repo
+  if [[ -z ${vcs[branch]} ]]; then
+    return 0
+  fi
+  vcs[untracked_files]=$(git ls-files --others 2>/dev/null)
+  vcs[untracked]=${vcs[untracked_files]:+1}
+  vcs[dirty]=${vcs[dirty]:=${vcs[unstaged]}}
+  vcs[dirty]=${vcs[dirty]:=${vcs[untracked]}}
+}
+
 precmd() {
-  setopt no_warn_nested_var
-  vcs_info
+  set +o warn_nested_var
+  vcs_info # sets ${vcs_info_msg_N_} variables
+  set -o warn_nested_var
+  parse-vcs-info
 }
 
 # Custom configuration
