@@ -98,7 +98,6 @@ setopt extended_glob      # extended globbing, eg. *~*.txt (exclude *.txt)
 setopt glob_star_short    # **.js expands to **/*.js; same for ***
 setopt numeric_glob_sort  # numeric file names expand sorted numerically
 setopt warn_create_global # warn on creating globals except `typeset -g`
-setopt warn_nested_var    # warn if nested function assigns to outer var
 # ∙ history
 setopt extended_history   # add timestamp to histfile entries
 setopt hist_find_no_dups  # don't display duplicates in history expansion
