@@ -24,10 +24,8 @@ alias mkpw="head -c512 /dev/urandom | sha512sum | cut -d' ' -f1"
 # z within the current git repository
 #
 function zg () {
-  set -e
   local root=$(git rev-parse --show-toplevel)
   [[ -n "${root}" ]] && 2>&1 _z "${root}" $@ || return 1
-  set +e
 }
 
 #
