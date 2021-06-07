@@ -40,7 +40,7 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 # Prompt
 #
 
-vcs_prompt_formats+=(
+vcs_prompt_formats=(
   '%{${fg[yellow]}%}'
   '${vcs[branch]:+ ∙ }'
   '%{${fg[red]}%}${vcs[branch]}${vcs[dirty]:+*}'
