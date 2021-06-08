@@ -12,7 +12,8 @@ alias super='sudo -EPS' # upgrades current shell + env to superuser
 
 alias l='ls -1'
 alias ll='ls -lh'
-alias la='ls -lAh' # use -A not -a so that . and .. are omitted
+alias la='ls -1A' # use -A not -a so that . and .. are omitted
+alias lla='ls -lAh'
 
 alias dd='dd status=progress'
 
