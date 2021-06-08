@@ -50,15 +50,25 @@ function git-push-set-upstream-branch-current () {(
   git push origin --set-upstream ${branch}
 )}
 
-function git-pull-rebase-master-then-force-with-lease () {(
+function git-pull-rebase-then-force-with-lease () {(
   #
-  # rebase remote master into current branch and then force-push
-  # also: a hug-tackle from behind, usually surprising.
+  # rebase given remote branch ($1) into current branch and then force-push
+  # to given remote branch ($2) with lease. remote can be configured as a
+  # variable, as in:
+  #
+  #   remote=xyz glop
+  #
+  # positional arguments default to the currently checked-out branch.
+  #   $1 allows rebasing a different remote branch into the current branch
+  #   $2 allows force-pushing-with-lease to a different remote branch
+  # the use-case for using both arguments seems far-fetched, overall. most
+  # usages will just be `glop` or `glop master`.
   #
   set -ex
-  git pull --rebase origin master
   local branch=$(git rev-parse --abbrev-ref HEAD) # git-branch-current
-  git push --force-with-lease ${branch}
+  local remote=${remote:-origin}
+  git pull --rebase ${remote} ${1:-${branch}}
+  git push --force-with-lease ${remote} ${2:-${branch}}
 )}
 
 #
@@ -66,7 +76,8 @@ function git-pull-rebase-master-then-force-with-lease () {(
 #
 alias gbc='git-branch-current'
 alias gpu='git-push-set-upstream-branch-current'
-alias glomp='git-pull-rebase-master-then-force-with-lease'
+alias glop='git-pull-rebase-then-force-with-lease'
+alias glomp='git-pull-rebase-then-force-with-lease master'
 
 #
 # shell aliases for common git commands
